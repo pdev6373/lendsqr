@@ -1,10 +1,5 @@
 'use client';
-import {
-  Dispatch,
-  HTMLInputTypeAttribute,
-  SetStateAction,
-  forwardRef,
-} from 'react';
+import { Dispatch, HTMLInputTypeAttribute, SetStateAction } from 'react';
 import styles from './Input.module.scss';
 
 type InputProps = {
@@ -13,27 +8,29 @@ type InputProps = {
   setValue: Dispatch<SetStateAction<string>>;
   extra?: JSX.Element;
   type?: HTMLInputTypeAttribute;
+  focus?: boolean;
 };
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ placeHolder, value, setValue, extra, type = 'text' }, ref) => {
-    return (
-      <div className={styles.wrapper}>
-        <input
-          className={styles.input}
-          placeholder={placeHolder}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          type={type}
-          ref={ref}
-        />
+export default function Input({
+  placeHolder,
+  value,
+  setValue,
+  extra,
+  type = 'text',
+  focus = false,
+}: InputProps) {
+  return (
+    <div className={styles.wrapper}>
+      <input
+        className={styles.input}
+        placeholder={placeHolder}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        type={type}
+        autoFocus={focus}
+      />
 
-        {extra ? <div className={styles.extra}>{extra}</div> : <></>}
-      </div>
-    );
-  },
-);
-
-Input.displayName = 'Input';
-
-export default Input;
+      {extra ? <div className={styles.extra}>{extra}</div> : <></>}
+    </div>
+  );
+}

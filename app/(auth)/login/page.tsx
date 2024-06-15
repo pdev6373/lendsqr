@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import styles from './page.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -11,11 +11,6 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const emailRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    emailRef.current?.focus();
-  }, []);
 
   const loginHandler = async () => {
     router.push('/');
@@ -54,12 +49,7 @@ export default function Login() {
         </div>
 
         <form className={styles.form}>
-          <Input
-            placeHolder="Email"
-            value={email}
-            setValue={setEmail}
-            ref={emailRef}
-          />
+          <Input placeHolder="Email" value={email} setValue={setEmail} focus />
 
           <Input
             placeHolder="Password"
