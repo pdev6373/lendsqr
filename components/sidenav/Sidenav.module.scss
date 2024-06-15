@@ -1,0 +1,23 @@
+.wrapper {
+  //   box-shadow: 0px 5px 20px 0px #0000000a;
+  padding: 0 47px 0 30px;
+  background-color: #fff;
+  padding: 35px 30px;
+}
+
+.logoWrapper {
+  position: relative;
+  width: clamp(140px, 29.6528%, 173.76px);
+  aspect-ratio: 4.826666667 / 1;
+  margin-bottom: 35px;
+}
+
+.logo {
+  position: absolute;
+  width: unset !important;
+  height: 100% !important;
+}
+
+.nav {
+  padding-block: 39px;
+}

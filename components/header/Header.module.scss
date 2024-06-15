@@ -1,0 +1,55 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 168.2px;
+  box-shadow: 3px 0px 20px 0px #0000000a;
+  padding: 26px 60px;
+  background-color: #fff;
+}
+
+.aside {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.notification {
+  margin-left: 17px;
+  cursor: pointer;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profileImage {
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.docs {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.75px;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: #21407d5f;
+  text-underline-offset: 1px;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18.77px;
+  color: #213f7d;
+}

@@ -4,6 +4,7 @@
   border-radius: 5px;
   padding-inline: 16px;
   gap: 6px;
+  overflow: hidden;
 }
 
 .wrapper:focus-within {
@@ -15,10 +16,18 @@
 .input {
   flex-grow: 1;
   padding-block: 16px;
+  color: #545f7d;
+}
+
+.input,
+.input::placeholder {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.12px;
 }
 
 .input::placeholder {
-  color: #545f7d;
+  color: #545f7d99;
 }
 
 .extra {
