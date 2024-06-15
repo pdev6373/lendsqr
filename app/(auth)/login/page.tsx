@@ -24,23 +24,25 @@ export default function Login() {
   return (
     <div className={styles.wrapper}>
       <section className={styles.aside}>
-        <div className={styles.logoWrapper}>
-          <Image
-            src={'/assets/svgs/logo.svg'}
-            alt="logo"
-            fill
-            className={styles.logo}
-          />
-        </div>
-
-        <div className={styles.illustrationWrapperOuter}>
-          <div className={styles.illustrationWrapper}>
+        <div className={styles.asideInner}>
+          <div className={styles.logoWrapper}>
             <Image
-              src={'/assets/pngs/auth-illustration.png'}
-              alt="illustration"
+              src={'/assets/svgs/logo.svg'}
+              alt="logo"
               fill
-              className={styles.illustration}
+              className={styles.logo}
             />
+          </div>
+
+          <div className={styles.illustrationWrapperOuter}>
+            <div className={styles.illustrationWrapper}>
+              <Image
+                src={'/assets/pngs/auth-illustration.png'}
+                alt="illustration"
+                fill
+                className={styles.illustration}
+              />
+            </div>
           </div>
         </div>
       </section>
