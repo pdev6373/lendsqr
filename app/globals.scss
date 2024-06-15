@@ -54,6 +54,12 @@ button {
   cursor: pointer;
 }
 
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
