@@ -4,17 +4,11 @@ import styles from './page.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Input } from '@/components';
-import { useRouter } from 'next/navigation';
 
 export default function Login() {
-  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
-  const loginHandler = async () => {
-    router.push('/');
-  };
 
   return (
     <div className={styles.wrapper}>
@@ -70,9 +64,9 @@ export default function Login() {
             Forgot PASSWORD?
           </Link>
 
-          <button onClick={loginHandler} className={styles.form__submit}>
+          <Link href={'/users'} className={styles.form__submit}>
             LOG IN
-          </button>
+          </Link>
         </form>
       </main>
     </div>

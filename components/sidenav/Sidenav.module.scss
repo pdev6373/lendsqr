@@ -1,15 +1,26 @@
 .wrapper {
-  //   box-shadow: 0px 5px 20px 0px #0000000a;
-  padding: 0 47px 0 30px;
   background-color: #fff;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.logoWrapperOuter {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   padding: 35px 30px;
+  background-color: #fff;
+  box-shadow: -15px 0px 20px 0px #0000000a;
 }
 
 .logoWrapper {
   position: relative;
-  width: clamp(140px, 29.6528%, 173.76px);
+  width: clamp(110px, 92.5874%, 144.8px);
   aspect-ratio: 4.826666667 / 1;
-  margin-bottom: 35px;
 }
 
 .logo {
@@ -19,5 +30,121 @@
 }
 
 .nav {
-  padding-block: 39px;
+  padding-block: 39px 24px;
+  box-shadow: 0px 5px 20px 0px #0000000a;
+  background-color: #fff;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.nav::-webkit-scrollbar {
+  width: 7px;
+}
+
+.nav::-webkit-scrollbar-track {
+  background: transparent;
+  margin-block: 2px;
+}
+
+.nav::-webkit-scrollbar-thumb {
+  background: transparent;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.nav:hover::-webkit-scrollbar-thumb {
+  background: #39cdcd96;
+  border-radius: 8px;
+  opacity: 1;
+  transition: all 0.3s;
+}
+
+.nav:hover::-webkit-scrollbar-thumb:hover {
+  background: #40d9d9c6;
+}
+
+.nav__top {
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+}
+
+.nav__top__content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 47px 11px 30px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.nav__top__content:hover {
+  background-color: #39cdcc0f;
+}
+
+.nav__top__content__active {
+  background-color: #39cdcc0f;
+  position: relative;
+}
+
+.nav__top__content__active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: #39cdcc;
+}
+
+.nav__text__dark,
+.nav__text__light {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+}
+
+.nav__main {
+  display: flex;
+  flex-direction: column;
+  gap: 41px;
+}
+
+.nav__text__light {
+  color: #213f7d99;
+}
+
+.nav__text__dark {
+  color: #213f7d;
+}
+
+.nav__iconWrapper {
+  position: relative;
+  width: 16px;
+  height: 16px;
+}
+
+.nav__iconWrapper__icon {
+  position: absolute;
+  width: unset !important;
+}
+
+.nav__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav__title {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14.08px;
+  color: #545f7d;
+  margin-inline: 30px;
+}
+
+.nav_links {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
 }

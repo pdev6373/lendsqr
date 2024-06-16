@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28.15px;
+  color: #213f7d;
+}
+
+.users {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(13.77em, 100%), 1fr));
+  gap: 30px;
+}
+
+.user {
+  box-shadow: 3px 5px 20px 0px #0000000a;
+  border: 1px solid #213f7d0f;
+  border-radius: 4px;
+  padding: 20px 30px 30px;
+  background-color: #fff;
+}
+
+.type {
+  margin-block: 14px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.42px;
+  color: #545f7d;
+}
+
+.amount {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28.15px;
+  color: #213f7d;
+}
