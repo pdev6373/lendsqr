@@ -308,9 +308,10 @@ export default function User() {
 
         <div className={styles.tabs}>
           {tabs.map((tab) => (
-            <Link
+            <div
               key={tab.name}
-              href={'#'}
+              // href={'#'}
+              onClick={() => setCurrentTab(tab)}
               className={
                 currentTab.name === tab.name
                   ? styles.tabs__current
@@ -318,7 +319,7 @@ export default function User() {
               }
             >
               {tab.name}
-            </Link>
+            </div>
           ))}
         </div>
       </div>

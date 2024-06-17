@@ -12,5 +12,5 @@
 }
 
 .children {
-  padding: 60px;
+  padding: clamp(24px, 4.165vw, 60px);
 }

@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import styles from './Sidenav.module.scss';
 import Link from 'next/link';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { MainContext } from '@/context/MainContext';
 
 const navs = [
@@ -130,6 +130,10 @@ const navs = [
 
 export default function Sidenav() {
   const { showSidebar, setShowSidebar } = useContext(MainContext);
+
+  useEffect(() => {
+    setShowSidebar(false);
+  }, []);
 
   return (
     <>
