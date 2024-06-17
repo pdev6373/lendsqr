@@ -4,7 +4,7 @@
   justify-content: space-between;
   gap: 40px;
   box-shadow: 3px 0px 20px 0px #0000000a;
-  padding: clamp(20px, 1.805555556vw, 26px) clamp(24px, 4.165vw, 60px);
+  padding: 16px clamp(24px, 4.165vw, 60px);
   background-color: #fff;
   position: sticky;
   top: 0;
@@ -90,6 +90,10 @@
 
   .aside {
     gap: 30px;
+  }
+
+  .wrapper {
+    padding-block: clamp(20px, 1.805555556vw, 26px);
   }
 }
 
