@@ -1,5 +1,8 @@
 import styles from './page.module.scss';
 import Image from 'next/image';
+import { usersData } from '@/constants';
+import { columns } from './columns';
+import { DataTable } from './dataTable';
 
 const users = [
   {
@@ -26,13 +29,13 @@ const users = [
 
 export default function Users() {
   return (
-    <div>
+    <div className={styles.wrapper}>
       <section className={styles.header}>
         <p className={styles.title}>Users</p>
 
         <div className={styles.users}>
-          {users.map((user) => (
-            <div className={styles.user}>
+          {users.map((user, index) => (
+            <div className={styles.user} key={index}>
               <Image
                 src={user.icon}
                 alt="user section"
@@ -47,6 +50,8 @@ export default function Users() {
           ))}
         </div>
       </section>
+
+      <DataTable columns={columns} data={usersData} />
     </div>
   );
 }

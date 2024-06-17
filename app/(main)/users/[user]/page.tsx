@@ -309,6 +309,7 @@ export default function User() {
         <div className={styles.tabs}>
           {tabs.map((tab) => (
             <Link
+              key={tab.name}
               href={'#'}
               className={
                 currentTab.name === tab.name
@@ -324,14 +325,17 @@ export default function User() {
 
       <div className={`${styles.details} ${styles.details__bottom}`}>
         {details.data.map((detail, index) => (
-          <div className={styles.details__bottom__content}>
+          <div className={styles.details__bottom__content} key={index}>
             <p className={styles.details__bottom__content__title}>
               {detail.title}
             </p>
 
             <div className={styles.details__bottom__content__details}>
               {detail.data.map((data) => (
-                <div className={styles.details__bottom__content__details__main}>
+                <div
+                  className={styles.details__bottom__content__details__main}
+                  key={data.title}
+                >
                   <p
                     className={
                       styles.details__bottom__content__details__main__title

@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.header__text {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 14.08px;
+  color: #545f7d;
+  flex-shrink: 0;
+}

@@ -41,10 +41,10 @@
 
 @media (min-width: 500px) {
   .input {
-    padding: 12px 20px;
+    padding: clamp(10px, 0.833333333vw, 12px) clamp(16px, 1.388888889vw, 20px);
   }
 
   .searchIcon {
-    padding: 13px 21px;
+    padding: clamp(10px, 0.833333333vw, 12px) clamp(16px, 1.388888889vw, 20px);
   }
 }

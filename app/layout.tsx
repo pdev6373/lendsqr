@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Work_Sans } from 'next/font/google';
 import './globals.scss';
 import localFont from 'next/font/local';
+import { Entry } from '@/components/index';
 
 const avenirNext = localFont({
   src: [
@@ -40,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${workSans.className} ${avenirNext.variable}`}>
-        {children}
+        <Entry>{children}</Entry>
       </body>
     </html>
   );

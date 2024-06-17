@@ -3,22 +3,39 @@
 import Image from 'next/image';
 import styles from './Header.module.scss';
 import Search from '../search/Search';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Link from 'next/link';
 import { Roboto } from 'next/font/google';
+import { MainContext } from '@/context/MainContext';
 
 const roboto = Roboto({ weight: '400', subsets: ['latin'] });
 
 export default function Header() {
   const [search, setSearch] = useState('');
+  const { setShowSidebar } = useContext(MainContext);
 
   return (
     <header className={styles.wrapper}>
-      <Search
-        placeHolder="Search for anything"
-        value={search}
-        setValue={setSearch}
-      />
+      <div className={styles.wrapper__menu}>
+        <div
+          className={styles.menuWrapper}
+          onClick={() => setShowSidebar((prev) => !prev)}
+        >
+          <Image
+            src={'/assets/svgs/menu.svg'}
+            alt="menu"
+            width={24}
+            height={24}
+            className={styles.menu}
+          />
+        </div>
+
+        <Search
+          placeHolder="Search for anything"
+          value={search}
+          setValue={setSearch}
+        />
+      </div>
 
       <div className={styles.aside}>
         <Link href={'#'} className={`${roboto.className} ${styles.docs}`}>
@@ -34,13 +51,14 @@ export default function Header() {
         />
 
         <div className={styles.profile}>
-          <Image
-            src={'/assets/pngs/profile.png'}
-            alt="profile"
-            width={48}
-            height={48}
-            className={styles.profileImage}
-          />
+          <div className={styles.profileImageWrapper}>
+            <Image
+              src={'/assets/pngs/profile.png'}
+              alt="profile"
+              fill
+              className={styles.profileImage}
+            />
+          </div>
 
           <div className={styles.user}>
             <p className={styles.name}>Adedeji</p>

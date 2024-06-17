@@ -2,9 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 168.2px;
+  gap: 40px;
   box-shadow: 3px 0px 20px 0px #0000000a;
-  padding: 26px 60px;
+  padding: clamp(20px, 1.805555556vw, 26px) clamp(10px, 4.165vw, 60px);
   background-color: #fff;
   position: sticky;
   top: 0;
@@ -14,7 +14,7 @@
 .aside {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 24px;
 }
 
 .notification {
@@ -26,18 +26,25 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
+}
+
+.profileImageWrapper {
+  position: relative;
+  width: clamp(40px, 3.333333333vw, 48px);
+  aspect-ratio: 1 / 1;
 }
 
 .profileImage {
   border-radius: 50%;
-  cursor: pointer;
+  width: unset !important;
+  height: unset !important;
 }
 
 .user {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 4px;
-  cursor: pointer;
 }
 
 .docs {
@@ -48,6 +55,7 @@
   text-decoration-thickness: 1.5px;
   text-decoration-color: #21407d5f;
   text-underline-offset: 1px;
+  display: none;
 }
 
 .name {
@@ -55,4 +63,62 @@
   font-weight: 500;
   line-height: 18.77px;
   color: #213f7d;
+}
+
+.wrapper__menu {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.menuWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.wrapper__menu > *:last-child {
+  display: none;
+}
+
+@media (min-width: 500px) {
+  .user {
+    display: flex;
+  }
+
+  .aside {
+    gap: 30px;
+  }
+}
+
+@media (min-width: 900px) {
+  .docs {
+    display: block;
+  }
+
+  .wrapper__menu > *:last-child {
+    display: flex;
+  }
+}
+
+@media (min-width: 1200px) {
+  .menuWrapper {
+    display: none;
+  }
+
+  .main {
+    gap: clamp(10px, 4.15vw, 60px);
+    padding-inline: clamp(40px, 6.945%, 100px);
+  }
+
+  .asideInner {
+    gap: 139px;
+    padding: 11.777777778vh 67px;
+  }
+
+  .illustrationWrapper {
+    margin-top: -15vh;
+  }
 }

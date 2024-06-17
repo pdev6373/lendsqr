@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styles from './page.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Input } from '@/components';
+import { Input } from '@/components/index';
 
 export default function Login() {
   const [email, setEmail] = useState('');

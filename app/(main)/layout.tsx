@@ -1,4 +1,4 @@
-import { Header, Sidenav } from '@/components';
+import { Header, Sidenav } from '@/components/index';
 import styles from './layout.module.scss';
 import type { Metadata } from 'next';
 
