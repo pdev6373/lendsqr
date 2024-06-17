@@ -27,9 +27,9 @@
 }
 
 .type {
-  margin-block: 12px 10px;
-  font-size: 12px;
   font-weight: 500;
+  margin-block: 14px 12px;
+  font-size: 14px;
   line-height: 1.172857143;
   color: #545f7d;
 }
@@ -50,10 +50,5 @@
   .amount,
   .title {
     font-size: 24px;
-  }
-
-  .type {
-    margin-block: 14px 12px;
-    font-size: 14px;
   }
 }
