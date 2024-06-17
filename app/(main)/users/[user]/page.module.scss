@@ -152,18 +152,21 @@
 
 .details__main {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 16px;
   padding-inline: clamp(24px, 2.083333333vw, 30px);
 }
 
 .details__main__content {
   display: flex;
-  gap: 30px;
+  flex-direction: column;
+  gap: clamp(24px, 2.083333333vw, 30px);
 }
 
 .details__main__content > *:nth-child(2) {
-  border-inline: 1px solid #545f7d33;
-  padding-inline: 30px;
+  border-block: 1px solid #545f7d33;
+  padding-block: clamp(24px, 2.083333333vw, 30px);
 }
 
 .details__main__content > * {
@@ -184,42 +187,54 @@
 }
 
 .nameWrapper {
-  gap: 8px;
+  gap: 6px;
 }
 
 .ratingWrapper {
-  gap: 10px;
+  gap: 8px;
 }
 
 .balanceWrapper {
-  gap: 12px;
+  gap: 10px;
+}
+
+.profileImageWrapper {
+  position: relative;
+  width: clamp(48px, 6.944444444vw, 100px);
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+}
+
+.profileImage {
+  width: unset !important;
+  height: unset Im !important;
 }
 
 .nameWrapper__name {
-  font-size: 22px;
+  font-size: clamp(18px, 1.527777778vw, 22px);
   font-weight: 500;
-  line-height: 25.81px;
+  line-height: 1.173181818;
   color: #213f7d;
 }
 
 .nameWrapper__id {
-  font-size: 14px;
+  font-size: clamp(12px, 0.972222222vw, 14px);
   font-weight: 400;
-  line-height: 16.42px;
+  line-height: 1.172857143;
   color: #545f7d;
 }
 
 .ratingWrapper__tier {
-  font-size: 14px;
+  font-size: clamp(12px, 0.972222222vw, 14px);
   font-weight: 500;
-  line-height: 16.42px;
+  line-height: 1.172857143;
   color: #545f7d;
 }
 
 .balanceWrapper__balance {
-  font-size: 22px;
+  font-size: clamp(18px, 1.527777778vw, 22px);
   font-weight: 500;
-  line-height: 25.81px;
+  line-height: 1.173181818;
   color: #213f7d;
 }
 
@@ -233,7 +248,7 @@
 .details__bottom__content {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: clamp(24px, 2.083333333vw, 30px);
 }
 
 .details__bottom__content__title {
@@ -311,6 +326,22 @@
   .tabs__current {
     line-height: 18.77px;
   }
+
+  .details__main {
+    gap: 20px;
+  }
+
+  .nameWrapper {
+    gap: 8px;
+  }
+
+  .ratingWrapper {
+    gap: 10px;
+  }
+
+  .balanceWrapper {
+    gap: 12px;
+  }
 }
 
 @media (min-width: 600px) {
@@ -320,8 +351,20 @@
     align-items: center;
   }
 
+  .details__main,
+  .details__main__content {
+    flex-direction: row;
+  }
+
   .header__actions__action {
     flex: unset;
+  }
+
+  .details__main__content > *:nth-child(2) {
+    border-block: none;
+    border-inline: 1px solid #545f7d33;
+    padding-block: none;
+    padding-inline: clamp(24px, 2.083333333vw, 30px);
   }
 }
 

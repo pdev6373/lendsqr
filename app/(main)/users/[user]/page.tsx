@@ -225,12 +225,14 @@ export default function User() {
 
       <div className={styles.details}>
         <div className={styles.details__main}>
-          <Image
-            src={details.overview.profilePicture}
-            alt="user"
-            width={100}
-            height={100}
-          />
+          <div className={styles.profileImageWrapper}>
+            <Image
+              src={details.overview.profilePicture}
+              alt="user"
+              fill
+              className={styles.profileImage}
+            />
+          </div>
 
           <div className={styles.details__main__content}>
             <div className={styles.nameWrapper}>
