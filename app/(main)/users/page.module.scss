@@ -15,7 +15,7 @@
 .users {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(13.5em, 100%), 1fr));
-  gap: clamp(20px, 1.805555556vw, 26px);
+  gap: clamp(16px, 1.805555556vw, 26px);
 }
 
 .user {
@@ -42,6 +42,10 @@
 }
 
 @media (min-width: 500px) {
+  .users {
+    gap: clamp(20px, 1.805555556vw, 26px);
+  }
+
   .user {
     padding: 20px clamp(24px, 2.083333333vw, 30px)
       clamp(24px, 2.083333333vw, 30px);
