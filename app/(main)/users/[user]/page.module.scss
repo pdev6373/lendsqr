@@ -252,16 +252,16 @@
 }
 
 .details__bottom__content__title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 18.77px;
+  line-height: 18px;
   color: #213f7d;
 }
 
 .details__bottom__content__details {
   display: inline-grid;
   grid-template-columns: repeat(auto-fill, minmax(min(13.77em, 100%), 1fr));
-  row-gap: 30px;
+  row-gap: clamp(24px, 2.083333333vw, 30px);
   column-gap: 24px;
 }
 
@@ -279,9 +279,9 @@
 }
 
 .details__bottom__content__details__main__text {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 18.77px;
+  line-height: 18px;
   color: #545f7d;
 }
 
@@ -341,6 +341,12 @@
 
   .balanceWrapper {
     gap: 12px;
+  }
+
+  .details__bottom__content__title,
+  .details__bottom__content__details__main__text {
+    font-size: 16px;
+    line-height: 18.77px;
   }
 }
 
