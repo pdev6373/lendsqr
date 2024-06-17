@@ -252,9 +252,9 @@
 }
 
 .details__bottom__content__title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 18px;
+  line-height: 18.77px;
   color: #213f7d;
 }
 
@@ -279,9 +279,9 @@
 }
 
 .details__bottom__content__details__main__text {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 18px;
+  line-height: 18.77px;
   color: #545f7d;
 }
 
@@ -341,12 +341,6 @@
 
   .balanceWrapper {
     gap: 12px;
-  }
-
-  .details__bottom__content__title,
-  .details__bottom__content__details__main__text {
-    font-size: 16px;
-    line-height: 18.77px;
   }
 }
 
