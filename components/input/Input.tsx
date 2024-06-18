@@ -9,6 +9,7 @@ type InputProps = {
   extra?: JSX.Element;
   type?: HTMLInputTypeAttribute;
   focus?: boolean;
+  outline?: 'error';
 };
 
 export default function Input({
@@ -18,9 +19,10 @@ export default function Input({
   extra,
   type = 'text',
   focus = false,
+  outline,
 }: InputProps) {
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${outline ? styles.outline : ''}`}>
       <input
         className={styles.input}
         placeholder={placeHolder}

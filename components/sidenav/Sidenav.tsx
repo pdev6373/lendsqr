@@ -1,9 +1,10 @@
 'use client';
 import Image from 'next/image';
 import styles from './Sidenav.module.scss';
-import Link from 'next/link';
 import { useContext, useEffect } from 'react';
 import { MainContext } from '@/context/MainContext';
+import { useRouter } from 'next/navigation';
+import { AuthContext } from '@/context/AuthContext';
 
 const navs = [
   {
@@ -130,6 +131,8 @@ const navs = [
 
 export default function Sidenav() {
   const { showSidebar, setShowSidebar } = useContext(MainContext);
+  const { setEmail } = useContext(AuthContext);
+  const router = useRouter();
 
   useEffect(() => {
     setShowSidebar(false);
@@ -247,7 +250,13 @@ export default function Sidenav() {
               ))}
 
               <div className={styles.logoutWrapper}>
-                <Link href={'/login'} className={styles.nav__top__content}>
+                <div
+                  onClick={() => {
+                    localStorage.removeItem('lendsqr__email');
+                    setEmail('');
+                  }}
+                  className={styles.nav__top__content}
+                >
                   <div className={styles.nav__iconWrapper}>
                     <Image
                       src={'/assets/svgs/logout.svg'}
@@ -262,7 +271,7 @@ export default function Sidenav() {
                   >
                     Logout
                   </p>
-                </Link>
+                </div>
 
                 <p className={styles.version}>v1.2.0</p>
               </div>
