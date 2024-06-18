@@ -64,7 +64,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className={styles.wrapper}>
-      <div
+      {/* <div
       // className="flex items-center py-4"
       >
         <input
@@ -75,16 +75,16 @@ export function DataTable<TData, TValue>({
           }
           // className="max-w-sm"
         />
-      </div>
+      </div> */}
 
       <div className={styles.table}>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} style={{ border: 0 }}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className={styles.tableHead}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -97,6 +97,7 @@ export function DataTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
+
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
@@ -105,7 +106,7 @@ export function DataTable<TData, TValue>({
                   data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className={styles.tableCell}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),

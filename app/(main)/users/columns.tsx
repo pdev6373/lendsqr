@@ -42,6 +42,12 @@ export const columns: ColumnDef<Users>[] = [
     },
   },
   {
+    id: 'space',
+    cell: () => {
+      return <div className={styles.space} />;
+    },
+  },
+  {
     accessorKey: 'username',
     header: ({ column }) => {
       return (
@@ -58,6 +64,12 @@ export const columns: ColumnDef<Users>[] = [
           />
         </div>
       );
+    },
+  },
+  {
+    id: 'space-2',
+    cell: () => {
+      return <div className={styles.space} />;
     },
   },
   {
@@ -80,6 +92,12 @@ export const columns: ColumnDef<Users>[] = [
     },
   },
   {
+    id: 'space-3',
+    cell: () => {
+      return <div className={styles.space} />;
+    },
+  },
+  {
     accessorKey: 'phoneNumber',
     header: ({ column }) => {
       return (
@@ -96,6 +114,12 @@ export const columns: ColumnDef<Users>[] = [
           />
         </div>
       );
+    },
+  },
+  {
+    id: 'space-4',
+    cell: () => {
+      return <div className={styles.space} />;
     },
   },
   {
@@ -118,6 +142,12 @@ export const columns: ColumnDef<Users>[] = [
     },
   },
   {
+    id: 'space-5',
+    cell: () => {
+      return <div className={styles.space} />;
+    },
+  },
+  {
     accessorKey: 'status',
     header: ({ column }) => {
       return (
@@ -135,6 +165,29 @@ export const columns: ColumnDef<Users>[] = [
         </div>
       );
     },
+    cell: ({ cell: { getValue } }) => {
+      const value = getValue() as string;
+
+      return (
+        <div className={styles.tableCellStatusWrapper}>
+          <div
+            className={(() => {
+              return `${styles.tableCellStatus} ${
+                value === 'Pending'
+                  ? styles.pending
+                  : value === 'Blacklisted'
+                  ? styles.blacklisted
+                  : value === 'Active'
+                  ? styles.active
+                  : ''
+              }`;
+            })()}
+          >
+            {value}
+          </div>
+        </div>
+      );
+    },
   },
   {
     id: 'actions',
@@ -142,32 +195,56 @@ export const columns: ColumnDef<Users>[] = [
       const payment = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <div>
-              {/* <Button variant="ghost" className="h-8 w-8 p-0"> */}
-              <span className="sr-only">Open menu</span>
-              <Image
-                src={'/assets/svgs/more.svg'}
-                alt="more"
-                width={20}
-                height={20}
-              />
-            </div>
-            {/* </Button> */}
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            {/* <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+        <div className={styles.actions}>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div>
+                <span className="sr-only">Open menu</span>
+                <Image
+                  src={'/assets/svgs/more.svg'}
+                  alt="more"
+                  width={20}
+                  height={20}
+                />
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              alignOffset={-40}
+              className={styles.content}
             >
-              Copy payment ID
-            </DropdownMenuItem> */}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+              <DropdownMenuItem className={styles.itemWrapper}>
+                <Image
+                  src={'/assets/svgs/view.svg'}
+                  alt="view"
+                  width={16}
+                  height={16}
+                />
+                <p className={styles.dropdownText}>View Details</p>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem className={styles.itemWrapper}>
+                <Image
+                  src={'/assets/svgs/blacklist.svg'}
+                  alt="blacklist"
+                  width={16}
+                  height={16}
+                />
+                <p className={styles.dropdownText}>Blacklist User</p>
+              </DropdownMenuItem>
+
+              <DropdownMenuItem className={styles.itemWrapper}>
+                <Image
+                  src={'/assets/svgs/activate-user.svg'}
+                  alt="activate"
+                  width={16}
+                  height={16}
+                />
+                <p className={styles.dropdownText}>Activate User</p>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       );
     },
   },

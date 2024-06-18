@@ -3,6 +3,7 @@
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  min-width: 130px;
 }
 
 .header__text {
@@ -11,4 +12,63 @@
   line-height: 14.08px;
   color: #545f7d;
   flex-shrink: 0;
+}
+
+.actions {
+  width: 20px;
+  cursor: pointer;
+}
+
+.space {
+  width: 35px;
+}
+
+.tableCellStatus {
+  background-color: rgba(84, 95, 125, 0.06);
+  text-align: center;
+  border-radius: 100px;
+  padding: 7px 15px;
+}
+
+.pending {
+  background-color: rgba(233, 178, 0, 0.1);
+  color: #e9b200;
+}
+
+.blacklisted {
+  background-color: rgba(228, 3, 59, 0.1);
+  color: #e4033b;
+}
+
+.active {
+  background-color: rgba(57, 205, 98, 0.06);
+  color: #39cd62;
+}
+
+.tableCellStatusWrapper {
+  padding-block: 16px;
+  width: fit-content;
+}
+
+.content {
+  box-shadow: 3px 5px 20px 0px #0000000a;
+  border: 1px solid #545f7d0a;
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.itemWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 34px 10px 10px;
+  cursor: pointer;
+}
+
+.dropdownText {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.42px;
+  color: #545f7d;
 }

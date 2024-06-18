@@ -99,6 +99,10 @@ $white: #fff;
   margin: 0;
 }
 
+body::-webkit-scrollbar {
+  width: 0;
+}
+
 body {
   color: $color-primary;
   background: $background-primary;
