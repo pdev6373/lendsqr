@@ -1,0 +1,27 @@
+.actions {
+  width: 20px;
+  cursor: pointer;
+}
+
+.content {
+  box-shadow: 3px 5px 20px 0px #0000000a;
+  border: 1px solid #545f7d0a;
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.itemWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 34px 10px 10px;
+  cursor: pointer;
+}
+
+.dropdownText {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.42px;
+  color: #545f7d;
+}

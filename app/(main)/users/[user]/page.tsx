@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import styles from './page.module.scss';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import localFont from 'next/font/local';
 import { UserDataType, UserType } from '@/context/MainContext';
 import formatPhoneNumber, { formatCurrency, truncateEmail } from '@/helpers';
@@ -274,7 +274,7 @@ export default function User() {
       <div className={`${styles.details} ${styles.details__bottom}`}>
         {user.data.map((details, index) =>
           details.title.toLowerCase().startsWith('education') ? (
-            <>
+            <Fragment key={index}>
               <UserDetails
                 details={details}
                 isLast={user.data.length - 1 === index}
@@ -300,9 +300,10 @@ export default function User() {
                 }}
                 isLast={false}
               />
-            </>
+            </Fragment>
           ) : (
             <UserDetails
+              key={index}
               details={
                 !index
                   ? {

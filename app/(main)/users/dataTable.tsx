@@ -178,14 +178,17 @@ export function DataTable<TData, TValue>({
                                   <SelectContent>
                                     <SelectGroup>
                                       <ScrollArea className={styles.scrollArea}>
-                                        {organizations?.map((organization) => (
-                                          <SelectItem
-                                            value={organization}
-                                            className={styles.selectText}
-                                          >
-                                            {organization}
-                                          </SelectItem>
-                                        ))}
+                                        {organizations?.map(
+                                          (organization, index) => (
+                                            <SelectItem
+                                              key={index}
+                                              value={organization}
+                                              className={styles.selectText}
+                                            >
+                                              {organization}
+                                            </SelectItem>
+                                          ),
+                                        )}
                                       </ScrollArea>
                                     </SelectGroup>
                                   </SelectContent>
