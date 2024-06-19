@@ -28,7 +28,7 @@ import {
 } from '@/components/ui/select';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { format } from 'date-fns';
 
@@ -39,10 +39,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { MainContext, UserOverviewType } from '@/context/MainContext';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  columns: ColumnDef<UserOverviewType, TValue>[];
+  data: UserOverviewType[];
 }
 
 const pageSizeOptions = [20, 40, 60, 80, 100];
@@ -56,11 +58,58 @@ export function DataTable<TData, TValue>({
   const [email, setEmail] = useState('');
   const [date, setDate] = useState<Date>();
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState<string>();
   const [showFilter, setShowFilter] = useState(false);
+  const { organizations } = useContext(MainContext);
+  const [tableData, setTableData] = useState<UserOverviewType[]>(data);
+
+  const filterHandler = () => {
+    setTableData(
+      (data as UserOverviewType[]).filter(
+        (data) =>
+          (organization &&
+            data.organization.toLowerCase().trim() ===
+              organization?.toLowerCase()?.trim()) ||
+          (user &&
+            data.username
+              .toLowerCase()
+              .trim()
+              .includes(user?.toLowerCase()?.trim())) ||
+          (email &&
+            data.email
+              .toLowerCase()
+              .trim()
+              .includes(email?.toLowerCase()?.trim())) ||
+          (date &&
+            format(new Date(data.dateJoined as string), 'MMM dd, yyyy')
+              .toLowerCase()
+              .trim()
+              .includes(format(date, 'MMM dd, yyyy')?.toLowerCase()?.trim())) ||
+          (phoneNumber &&
+            data.phoneNumber
+              .toLowerCase()
+              .trim()
+              .includes(phoneNumber?.toLowerCase()?.trim())) ||
+          (status &&
+            data.status.toLowerCase().trim() === status?.toLowerCase()?.trim()),
+      ),
+    );
+    setShowFilter(false);
+  };
+
+  const resetHandler = () => {
+    setTableData(data);
+    setOrganization('');
+    setUser('');
+    setEmail('');
+    setDate(undefined);
+    setPhoneNumber('');
+    setStatus(undefined);
+    setShowFilter(false);
+  };
 
   const table = useReactTable({
-    data,
+    data: tableData,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -74,12 +123,6 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className={styles.wrapper}>
-      {showFilter ? (
-        <div className={styles.overlay} onClick={() => setShowFilter(false)} />
-      ) : (
-        <></>
-      )}
-
       <div className={styles.table}>
         <Table>
           <TableHeader>
@@ -90,12 +133,13 @@ export function DataTable<TData, TValue>({
               >
                 {headerGroup.headers.map((header, index) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      className={styles.tableHead}
-                      onClick={() => setShowFilter((prev) => !prev)}
-                    >
+                    <TableHead key={header.id} className={styles.tableHead}>
                       <>
+                        <div
+                          className={styles.tableHead__overlay}
+                          onClick={() => setShowFilter((prev) => !prev)}
+                        />
+
                         {header.isPlaceholder
                           ? null
                           : flexRender(
@@ -109,171 +153,166 @@ export function DataTable<TData, TValue>({
                               showFilter ? styles.filtersOpen : ''
                             }`}
                           >
-                            <div className={styles.itemWrapper}>
-                              <p className={styles.filterTitle}>Organization</p>
-                              <Select
-                                value={organization}
-                                onValueChange={(value) => {
-                                  setOrganization(value);
-                                }}
-                              >
-                                <SelectTrigger
-                                  className={styles.organizationSelect}
+                            <div
+                              className={styles.overlay}
+                              onClick={() => setShowFilter(false)}
+                            />
+
+                            <div className={styles.filters__inner}>
+                              <div className={styles.itemWrapper}>
+                                <p className={styles.filterTitle}>
+                                  Organization
+                                </p>
+                                <Select
+                                  value={organization}
+                                  onValueChange={(value) => {
+                                    setOrganization(value);
+                                  }}
                                 >
-                                  <SelectValue placeholder="Select a fruit" />
-                                </SelectTrigger>
-
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectItem
-                                      value="apple"
-                                      className={styles.selectText}
-                                    >
-                                      Apple
-                                    </SelectItem>
-                                    <SelectItem
-                                      value="banana"
-                                      className={styles.selectText}
-                                    >
-                                      Banana
-                                    </SelectItem>
-                                    <SelectItem
-                                      value="blueberry"
-                                      className={styles.selectText}
-                                    >
-                                      Blueberry
-                                    </SelectItem>
-                                    <SelectItem
-                                      value="grapes"
-                                      className={styles.selectText}
-                                    >
-                                      Grapes
-                                    </SelectItem>
-                                    <SelectItem
-                                      value="pineapple"
-                                      className={styles.selectText}
-                                    >
-                                      Pineapple
-                                    </SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
-                            </div>
-
-                            <div className={styles.itemWrapper}>
-                              <p className={styles.filterTitle}>Username</p>
-                              <input
-                                placeholder="User"
-                                value={user}
-                                onChange={(e) => setUser(e.target.value)}
-                                className={styles.input}
-                              />
-                            </div>
-
-                            <div className={styles.itemWrapper}>
-                              <p className={styles.filterTitle}>Email</p>
-                              <input
-                                placeholder="Email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className={styles.input}
-                              />
-                            </div>
-
-                            <div className={styles.itemWrapper}>
-                              <p className={styles.filterTitle}>Date</p>
-
-                              <Popover>
-                                <PopoverTrigger asChild>
-                                  <Button
-                                    variant={'outline'}
-                                    className={`${styles.organizationSelect} ${styles.dateSelect}`}
+                                  <SelectTrigger
+                                    className={styles.organizationSelect}
                                   >
-                                    {date ? format(date, 'PPP') : 'Date'}
-                                    <Image
-                                      src={'/assets/svgs/calendar.svg'}
-                                      alt="calendar"
-                                      width={16}
-                                      height={16}
+                                    <SelectValue placeholder="Select" />
+                                  </SelectTrigger>
+
+                                  <SelectContent>
+                                    <SelectGroup>
+                                      <ScrollArea className={styles.scrollArea}>
+                                        {organizations?.map((organization) => (
+                                          <SelectItem
+                                            value={organization}
+                                            className={styles.selectText}
+                                          >
+                                            {organization}
+                                          </SelectItem>
+                                        ))}
+                                      </ScrollArea>
+                                    </SelectGroup>
+                                  </SelectContent>
+                                </Select>
+                              </div>
+
+                              <div className={styles.itemWrapper}>
+                                <p className={styles.filterTitle}>Username</p>
+                                <input
+                                  placeholder="User"
+                                  value={user}
+                                  onChange={(e) => setUser(e.target.value)}
+                                  className={styles.input}
+                                />
+                              </div>
+
+                              <div className={styles.itemWrapper}>
+                                <p className={styles.filterTitle}>Email</p>
+                                <input
+                                  placeholder="Email"
+                                  value={email}
+                                  onChange={(e) => setEmail(e.target.value)}
+                                  className={styles.input}
+                                />
+                              </div>
+
+                              <div className={styles.itemWrapper}>
+                                <p className={styles.filterTitle}>Date</p>
+
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <Button
+                                      variant={'outline'}
+                                      className={`${styles.organizationSelect} ${styles.dateSelect}`}
+                                    >
+                                      {date ? format(date, 'PPP') : 'Date'}
+                                      <Image
+                                        src={'/assets/svgs/calendar.svg'}
+                                        alt="calendar"
+                                        width={16}
+                                        height={16}
+                                      />
+                                    </Button>
+                                  </PopoverTrigger>
+
+                                  <PopoverContent className="w-auto p-0">
+                                    <Calendar
+                                      mode="single"
+                                      selected={date}
+                                      onSelect={setDate}
+                                      initialFocus
                                     />
-                                  </Button>
-                                </PopoverTrigger>
+                                  </PopoverContent>
+                                </Popover>
+                              </div>
 
-                                <PopoverContent className="w-auto p-0">
-                                  <Calendar
-                                    mode="single"
-                                    selected={date}
-                                    onSelect={setDate}
-                                    initialFocus
-                                  />
-                                </PopoverContent>
-                              </Popover>
-                            </div>
+                              <div className={styles.itemWrapper}>
+                                <p className={styles.filterTitle}>
+                                  Phone Number
+                                </p>
+                                <input
+                                  placeholder="Phone Number"
+                                  value={phoneNumber}
+                                  onChange={(e) =>
+                                    setPhoneNumber(e.target.value)
+                                  }
+                                  className={styles.input}
+                                />
+                              </div>
 
-                            <div className={styles.itemWrapper}>
-                              <p className={styles.filterTitle}>Phone Number</p>
-                              <input
-                                placeholder="Phone Number"
-                                value={phoneNumber}
-                                onChange={(e) => setPhoneNumber(e.target.value)}
-                                className={styles.input}
-                              />
-                            </div>
-
-                            <div className={styles.itemWrapper}>
-                              <p className={styles.filterTitle}>Status</p>
-                              <Select
-                                value={status}
-                                onValueChange={(value) => {
-                                  setStatus(value);
-                                }}
-                              >
-                                <SelectTrigger
-                                  className={styles.organizationSelect}
+                              <div className={styles.itemWrapper}>
+                                <p className={styles.filterTitle}>Status</p>
+                                <Select
+                                  value={status}
+                                  onValueChange={(value) => setStatus(value)}
                                 >
-                                  <SelectValue placeholder="Select a fruit" />
-                                </SelectTrigger>
+                                  <SelectTrigger
+                                    className={styles.organizationSelect}
+                                  >
+                                    <SelectValue placeholder="Select" />
+                                  </SelectTrigger>
 
-                                <SelectContent>
-                                  <SelectGroup>
-                                    <SelectItem
-                                      value="apple"
-                                      className={styles.selectText}
-                                    >
-                                      Apple
-                                    </SelectItem>
-                                    <SelectItem
-                                      value="banana"
-                                      className={styles.selectText}
-                                    >
-                                      Banana
-                                    </SelectItem>
-                                    <SelectItem
-                                      value="blueberry"
-                                      className={styles.selectText}
-                                    >
-                                      Blueberry
-                                    </SelectItem>
-                                    <SelectItem
-                                      value="grapes"
-                                      className={styles.selectText}
-                                    >
-                                      Grapes
-                                    </SelectItem>
-                                    <SelectItem
-                                      value="pineapple"
-                                      className={styles.selectText}
-                                    >
-                                      Pineapple
-                                    </SelectItem>
-                                  </SelectGroup>
-                                </SelectContent>
-                              </Select>
-                            </div>
+                                  <SelectContent>
+                                    <SelectGroup>
+                                      <SelectItem
+                                        value="Active"
+                                        className={styles.selectText}
+                                      >
+                                        Active
+                                      </SelectItem>
+                                      <SelectItem
+                                        value="Inactive"
+                                        className={styles.selectText}
+                                      >
+                                        Inactive
+                                      </SelectItem>
+                                      <SelectItem
+                                        value="Pending"
+                                        className={styles.selectText}
+                                      >
+                                        Pending
+                                      </SelectItem>
+                                      <SelectItem
+                                        value="Blacklisted"
+                                        className={styles.selectText}
+                                      >
+                                        Blacklisted
+                                      </SelectItem>
+                                    </SelectGroup>
+                                  </SelectContent>
+                                </Select>
+                              </div>
 
-                            <div className={styles.actions}>
-                              <button className={styles.reset}>Reset</button>
-                              <button className={styles.filter}>Filter</button>
+                              <div className={styles.actions}>
+                                <button
+                                  className={styles.reset}
+                                  onClick={resetHandler}
+                                >
+                                  Reset
+                                </button>
+                                <button
+                                  className={styles.filter}
+                                  onClick={filterHandler}
+                                >
+                                  Filter
+                                </button>
+                              </div>
                             </div>
                           </div>
                         ) : (
@@ -343,99 +382,121 @@ export function DataTable<TData, TValue>({
         </div>
 
         <div className={styles.controls}>
-          <Image
-            src={
-              table.getCanPreviousPage()
-                ? '/assets/svgs/prev-active.svg'
-                : '/assets/svgs/prev-inactive.svg'
-            }
-            alt="previous"
-            width={24}
-            height={24}
-            onClick={() => table.getCanPreviousPage() && table.previousPage()}
-            className={`${styles.control} ${
-              table.getCanPreviousPage() ? '' : styles.notAllowed
-            }`}
-          />
+          {table.getPageCount() > 1 ? (
+            <Image
+              src={
+                table.getCanPreviousPage()
+                  ? '/assets/svgs/prev-active.svg'
+                  : '/assets/svgs/prev-inactive.svg'
+              }
+              alt="previous"
+              width={24}
+              height={24}
+              onClick={() => table.getCanPreviousPage() && table.previousPage()}
+              className={`${styles.control} ${
+                table.getCanPreviousPage() ? '' : styles.notAllowed
+              }`}
+            />
+          ) : (
+            <></>
+          )}
 
-          <div className={styles.pagination}>
-            {(() => {
-              const currentPage = () =>
-                table.getState().pagination.pageIndex + 1;
+          {table.getPageCount() < 3 ? (
+            <></>
+          ) : (
+            <div className={styles.pagination}>
+              {(() => {
+                const currentPage = () =>
+                  table.getState().pagination.pageIndex + 1;
 
-              return (
-                <>
-                  <p
-                    className={`${styles.paginationNumber} ${
-                      currentPage() === 1 ? styles.paginationActive : ''
-                    }`}
-                    onClick={() => table.setPageIndex(0)}
-                  >
-                    1
-                  </p>
-                  <p
-                    className={`${styles.paginationNumber} ${
-                      currentPage() === 2 ? styles.paginationActive : ''
-                    }`}
-                    onClick={() => table.setPageIndex(1)}
-                  >
-                    2
-                  </p>
-                  <p
-                    className={`${styles.paginationNumber} ${
-                      currentPage() === 3 ? styles.paginationActive : ''
-                    }`}
-                    onClick={() => table.setPageIndex(2)}
-                  >
-                    3
-                  </p>
+                return (
+                  <>
+                    <p
+                      className={`${styles.paginationNumber} ${
+                        currentPage() === 1 ? styles.paginationActive : ''
+                      }`}
+                      onClick={() => table.setPageIndex(0)}
+                    >
+                      1
+                    </p>
+                    <p
+                      className={`${styles.paginationNumber} ${
+                        currentPage() === 2 ? styles.paginationActive : ''
+                      }`}
+                      onClick={() => table.setPageIndex(1)}
+                    >
+                      2
+                    </p>
+                    <p
+                      className={`${styles.paginationNumber} ${
+                        currentPage() === 3 ? styles.paginationActive : ''
+                      }`}
+                      onClick={() => table.setPageIndex(2)}
+                    >
+                      3
+                    </p>
 
-                  <p
-                    className={`${styles.paginationNumber}`}
-                    style={{ cursor: 'not-allowed' }}
-                  >
-                    ...
-                  </p>
+                    {table.getPageCount() > 5 ? (
+                      <>
+                        <p
+                          className={`${styles.paginationNumber}`}
+                          style={{ cursor: 'not-allowed' }}
+                        >
+                          ...
+                        </p>
 
-                  <p
-                    className={`${styles.paginationNumber} ${
-                      currentPage() === table.getPageCount() - 1
-                        ? styles.paginationActive
-                        : ''
-                    }`}
-                    onClick={() => table.setPageIndex(table.getPageCount() - 2)}
-                  >
-                    {table.getPageCount() - 1}
-                  </p>
-                  <p
-                    className={`${styles.paginationNumber} ${
-                      currentPage() === table.getPageCount()
-                        ? styles.paginationActive
-                        : ''
-                    }`}
-                    onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-                  >
-                    {table.getPageCount()}
-                  </p>
-                </>
-              );
-            })()}
-          </div>
+                        <p
+                          className={`${styles.paginationNumber} ${
+                            currentPage() === table.getPageCount() - 1
+                              ? styles.paginationActive
+                              : ''
+                          }`}
+                          onClick={() =>
+                            table.setPageIndex(table.getPageCount() - 2)
+                          }
+                        >
+                          {table.getPageCount() - 1}
+                        </p>
+                        <p
+                          className={`${styles.paginationNumber} ${
+                            currentPage() === table.getPageCount()
+                              ? styles.paginationActive
+                              : ''
+                          }`}
+                          onClick={() =>
+                            table.setPageIndex(table.getPageCount() - 1)
+                          }
+                        >
+                          {table.getPageCount()}
+                        </p>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                );
+              })()}
+            </div>
+          )}
 
-          <Image
-            src={
-              table.getCanNextPage()
-                ? '/assets/svgs/next-active.svg'
-                : '/assets/svgs/next-inactive.svg'
-            }
-            alt="next"
-            width={24}
-            height={24}
-            onClick={() => table.getCanNextPage() && table.nextPage()}
-            className={`${styles.control} ${
-              table.getCanNextPage() ? '' : styles.notAllowed
-            }`}
-          />
+          {table.getPageCount() > 1 ? (
+            <Image
+              src={
+                table.getCanNextPage()
+                  ? '/assets/svgs/next-active.svg'
+                  : '/assets/svgs/next-inactive.svg'
+              }
+              alt="next"
+              width={24}
+              height={24}
+              onClick={() => table.getCanNextPage() && table.nextPage()}
+              className={`${styles.control} ${
+                table.getCanNextPage() ? '' : styles.notAllowed
+              }`}
+            />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

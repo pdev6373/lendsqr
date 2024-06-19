@@ -11,9 +11,9 @@ import { AuthContext } from '@/context/AuthContext';
 const roboto = Roboto({ weight: '400', subsets: ['latin'] });
 
 export default function Header() {
-  const [search, setSearch] = useState('');
-  const { setShowSidebar } = useContext(MainContext);
+  const { setShowSidebar, setSearch } = useContext(MainContext);
   const { email } = useContext(AuthContext);
+  const [searchValue, setSearchValue] = useState('');
 
   return (
     <header className={styles.wrapper}>
@@ -33,15 +33,20 @@ export default function Header() {
 
         <Search
           placeHolder="Search for anything"
-          value={search}
-          setValue={setSearch}
+          value={searchValue}
+          setValue={setSearchValue}
+          onSearch={() => setSearch(searchValue)}
         />
       </div>
 
       <div className={styles.aside}>
-        <Link href={'#'} className={`${roboto.className} ${styles.docs}`}>
+        <a
+          href="https://blog.lendsqr.com/how-to-use-lendsqr-apis-to-power-your-loan-app/"
+          target="_blank"
+          className={`${roboto.className} ${styles.docs}`}
+        >
           Docs
-        </Link>
+        </a>
 
         <Image
           src={'/assets/pngs/notification.png'}

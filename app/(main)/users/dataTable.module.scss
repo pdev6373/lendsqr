@@ -25,7 +25,7 @@
   background-color: #ffffff;
   border-radius: 4px;
   padding-inline: 30px;
-  padding-block: 30px 39px;
+  padding-block: 30px 32px;
   overflow-x: auto;
   position: relative;
 }
@@ -72,8 +72,8 @@
 
 .tableCell,
 .tableCellStatus {
-  // text-wrap: nowrap;
-  // white-space: nowrap;
+  text-wrap: nowrap;
+  white-space: nowrap;
   font-size: 14px;
   font-weight: 400;
   line-height: 16.42px;
@@ -116,7 +116,9 @@
   border: 1px solid rgba(33, 63, 125, 0.2);
   background-color: #fff;
   min-width: 230px;
+  max-width: 100%;
   padding: clamp(8px, 0.833333333vw, 12px) clamp(16px, 1.388888889vw, 20px);
+  text-align: left;
 }
 
 .filterTitle {
@@ -142,6 +144,11 @@
   font-weight: 400;
   line-height: 16.42px;
   color: rgb(84, 95, 125);
+  width: 100%;
+}
+
+.scrollArea {
+  height: 300px;
 }
 
 .input::placeholder {
@@ -166,32 +173,52 @@
 }
 
 .filters {
-  padding: 30px 20px 28px;
   position: absolute;
   z-index: 5;
   left: 0;
+
+  width: 100vw;
+  // overflow: hidden;
   top: 35px;
-  box-shadow: 3px 5px 20px 0px #0000000a;
-  border: 1px solid #545f7d24;
-  background-color: #ffffff;
-  border-radius: 4px;
-  width: 270px;
-  flex-direction: column;
-  gap: 20px;
   display: none;
-  opacity: 0;
-  transition-property: overlay display opacity;
-  transition-duration: 0.5s;
-  transition-behavior: allow-discrete;
+
+  &__inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 5;
+    padding: 30px 20px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 3px 5px 20px 0px #0000000a;
+    border: 1px solid #545f7d24;
+    background-color: #ffffff;
+    border-radius: 4px;
+    width: 270px;
+    opacity: 0;
+    transition-property: overlay display opacity;
+    transition-duration: 0.5s;
+    transition-behavior: allow-discrete;
+  }
 }
 
 .notAllowed {
   cursor: not-allowed;
 }
 
+.tableHead__overlay {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+
 .filtersOpen {
-  display: flex;
-  opacity: 1;
+  display: block;
+
+  & .filters__inner {
+    opacity: 1;
+  }
 
   @starting-style {
     opacity: 0;
@@ -200,8 +227,10 @@
 
 .overlay {
   position: absolute;
-  z-index: 4;
   inset: 0;
+  z-index: 3;
+  height: max(600px, 100vh);
+  left: 272px;
 }
 
 .actions {

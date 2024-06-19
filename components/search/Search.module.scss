@@ -20,6 +20,11 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  transition: background-color 0.14s ease-in-out;
+}
+
+.searchIcon:hover {
+  background-color: #39cdcddd;
 }
 
 .input {

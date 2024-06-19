@@ -6,11 +6,23 @@ type SearchProps = {
   placeHolder: string;
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
+  onSearch: () => any;
 };
 
-export default function Search({ placeHolder, setValue, value }: SearchProps) {
+export default function Search({
+  placeHolder,
+  setValue,
+  value,
+  onSearch,
+}: SearchProps) {
   return (
-    <div className={styles.wrapper}>
+    <form
+      className={styles.wrapper}
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSearch();
+      }}
+    >
       <input
         className={styles.input}
         placeholder={placeHolder}
@@ -18,14 +30,14 @@ export default function Search({ placeHolder, setValue, value }: SearchProps) {
         onChange={(e) => setValue(e.target.value)}
       />
 
-      <div className={styles.searchIcon}>
+      <button className={styles.searchIcon}>
         <Image
           src={'/assets/svgs/search.svg'}
           alt="search"
           width={14}
           height={14}
         />
-      </div>
-    </div>
+      </button>
+    </form>
   );
 }

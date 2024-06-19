@@ -253,6 +253,7 @@ export default function Sidenav() {
                 <div
                   onClick={() => {
                     localStorage.removeItem('lendsqr__email');
+                    localStorage.removeItem('lendsqr__user');
                     setEmail('');
                   }}
                   className={styles.nav__top__content}

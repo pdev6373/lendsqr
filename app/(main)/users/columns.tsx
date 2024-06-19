@@ -7,21 +7,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { MainContext, UserOverviewType } from '@/context/MainContext';
+import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
 
-export type Users = {
-  organization: string;
-  username: string;
-  email: string;
-  phoneNumber: string;
-  dateJoined: string;
-  status: 'Inactive' | 'Pending' | 'Blacklisted' | 'Active';
-};
-
-export const columns: ColumnDef<Users>[] = [
+export const columns: ColumnDef<UserOverviewType>[] = [
   {
     accessorKey: 'organization',
     header: ({ column }) => {
@@ -192,7 +184,9 @@ export const columns: ColumnDef<Users>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
-      const payment = row.original;
+      const status = row.original.status;
+      const router = useRouter();
+      const { users } = useContext(MainContext);
 
       return (
         <div className={styles.actions}>
@@ -213,7 +207,26 @@ export const columns: ColumnDef<Users>[] = [
               alignOffset={-40}
               className={styles.content}
             >
-              <DropdownMenuItem className={styles.itemWrapper}>
+              <DropdownMenuItem
+                className={styles.itemWrapper}
+                onClick={() => {
+                  if (users) {
+                    const user = users?.find(
+                      (user) =>
+                        user.overview.id === row.original.id &&
+                        user.overview.username === row.original.username,
+                    );
+
+                    if (user)
+                      localStorage.setItem(
+                        'lendsqr__user',
+                        JSON.stringify(user),
+                      );
+
+                    router.push(`/users/${row.original.username}`);
+                  }
+                }}
+              >
                 <Image
                   src={'/assets/svgs/view.svg'}
                   alt="view"
@@ -230,7 +243,11 @@ export const columns: ColumnDef<Users>[] = [
                   width={16}
                   height={16}
                 />
-                <p className={styles.dropdownText}>Blacklist User</p>
+                <p className={styles.dropdownText}>
+                  {status === 'Blacklisted'
+                    ? 'Whitelist User'
+                    : 'Blacklist User'}
+                </p>
               </DropdownMenuItem>
 
               <DropdownMenuItem className={styles.itemWrapper}>
@@ -240,7 +257,9 @@ export const columns: ColumnDef<Users>[] = [
                   width={16}
                   height={16}
                 />
-                <p className={styles.dropdownText}>Activate User</p>
+                <p className={styles.dropdownText}>
+                  {status === 'Active' ? 'Deactivate User' : 'Activate User'}
+                </p>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

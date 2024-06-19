@@ -1,10 +1,13 @@
+'use client';
 import styles from './page.module.scss';
 import Image from 'next/image';
-import { usersData } from '@/constants';
 import { columns } from './columns';
 import { DataTable } from './dataTable';
+import { useContext, useEffect, useState } from 'react';
+import { MainContext, UserOverviewType } from '@/context/MainContext';
+import { format } from 'date-fns';
 
-const users = [
+const usersDetails = [
   {
     type: 'Users',
     amount: '2,453',
@@ -28,13 +31,31 @@ const users = [
 ];
 
 export default function Users() {
+  const { users, search, fetchingUsers } = useContext(MainContext);
+  const [tableData, setTableData] = useState<UserOverviewType[]>();
+
+  useEffect(() => {
+    if (users)
+      setTableData(
+        users.map((user) => ({
+          ...user.overview,
+          dateJoined: format(
+            user.overview.dateJoined as Date,
+            'MMM dd, yyyy h:mm a',
+          ),
+        })),
+      );
+  }, [users]);
+
+  if (!users && !fetchingUsers) return <></>;
+
   return (
     <div className={styles.wrapper}>
       <section className={styles.header}>
         <p className={styles.title}>Users</p>
 
         <div className={styles.users}>
-          {users.map((user, index) => (
+          {usersDetails.map((user, index) => (
             <div className={styles.user} key={index}>
               <Image
                 src={user.icon}
@@ -51,7 +72,40 @@ export default function Users() {
         </div>
       </section>
 
-      <DataTable columns={columns} data={usersData} />
+      {!tableData ? (
+        <></>
+      ) : (
+        <DataTable
+          columns={columns}
+          data={tableData?.filter(
+            (user) =>
+              user.organization
+                .toLowerCase()
+                .trim()
+                .includes(search.toLowerCase().trim()) ||
+              user.username
+                .toLowerCase()
+                .trim()
+                .includes(search.toLowerCase().trim()) ||
+              user.email
+                .toLowerCase()
+                .trim()
+                .includes(search.toLowerCase().trim()) ||
+              user.phoneNumber
+                .toLowerCase()
+                .trim()
+                .includes(search.toLowerCase().trim()) ||
+              (user.dateJoined as string)
+                .toLowerCase()
+                .trim()
+                .includes(search.toLowerCase().trim()) ||
+              user.status
+                .toLowerCase()
+                .trim()
+                .includes(search.toLowerCase().trim()),
+          )}
+        />
+      )}
     </div>
   );
 }
