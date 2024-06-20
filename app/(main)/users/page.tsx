@@ -6,6 +6,7 @@ import { DataTable } from './dataTable';
 import { useContext, useEffect, useState } from 'react';
 import { MainContext, UserOverviewType } from '@/context/MainContext';
 import { format } from 'date-fns';
+import { truncateEmail, formatPhoneNumber, shortenString } from '@/helpers';
 
 const usersDetails = [
   {
@@ -39,6 +40,9 @@ export default function Users() {
       setTableData(
         users.map((user) => ({
           ...user.overview,
+          email: truncateEmail(user.overview.email),
+          phoneNumber: formatPhoneNumber(user.overview.phoneNumber),
+          organization: shortenString(user.overview.organization),
           dateJoined: format(
             user.overview.dateJoined as Date,
             'MMM dd, yyyy h:mm a',

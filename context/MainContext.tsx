@@ -1,4 +1,5 @@
 'use client';
+import { shortenString } from '@/helpers';
 import {
   Dispatch,
   ReactNode,
@@ -104,7 +105,9 @@ export default function MainProvider({ children }: MainProviderType) {
 
   useEffect(() => {
     if (users)
-      setOrganizations(users.map((user) => user.overview.organization));
+      setOrganizations(
+        users.map((user) => shortenString(user.overview.organization)),
+      );
   }, [users]);
 
   return (

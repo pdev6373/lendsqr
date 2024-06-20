@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Fragment, useEffect, useState } from 'react';
 import localFont from 'next/font/local';
 import { UserDataType, UserType } from '@/context/MainContext';
-import formatPhoneNumber, { formatCurrency, truncateEmail } from '@/helpers';
+import { formatPhoneNumber, formatCurrency, truncateEmail } from '@/helpers';
 
 const sfCompact = localFont({
   src: [
@@ -120,11 +120,6 @@ export default function User() {
   const userAsString = localStorage.getItem('lendsqr__user');
   const [isUserBlacklisted, setIsUserBlacklisted] = useState(false);
   const [isUserActivated, setIsUserActivated] = useState(false);
-
-  useEffect(() => {
-    window.focus();
-    window.scrollTo(0, 0);
-  }, []);
 
   if (!userAsString) {
     router.replace('/users');
