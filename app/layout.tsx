@@ -29,7 +29,7 @@ const avenirNext = localFont({
 const workSans = Work_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Lendsqr',
+  title: 'Lendsqr - Empowering the smartest lenders',
   description: 'Empowering the smartest lenders',
 };
 
