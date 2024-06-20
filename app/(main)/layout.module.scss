@@ -10,7 +10,7 @@
   flex-grow: 1;
   overflow-y: auto;
   position: relative;
-  min-height: 100vh;
+  min-height: 100svh;
 
   &__children {
     padding: clamp(24px, 4.165vw, 60px);
