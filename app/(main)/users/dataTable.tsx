@@ -122,7 +122,142 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={`${styles.wrapper} ${showFilter ? styles.wrapperOpen : ''}`}
+    >
+      <div
+        className={`${styles.filters} ${showFilter ? styles.filtersOpen : ''}`}
+      >
+        <div className={styles.overlay} onClick={() => setShowFilter(false)} />
+
+        <div className={styles.filters__inner}>
+          <div className={styles.itemWrapper}>
+            <p className={styles.filterTitle}>Organization</p>
+            <Select
+              value={organization}
+              onValueChange={(value) => {
+                setOrganization(value);
+              }}
+            >
+              <SelectTrigger className={styles.organizationSelect}>
+                <SelectValue placeholder="Select" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectGroup>
+                  <ScrollArea className={styles.scrollArea}>
+                    {organizations?.map((organization, index) => (
+                      <SelectItem
+                        key={index}
+                        value={organization}
+                        className={styles.selectText}
+                      >
+                        {organization}
+                      </SelectItem>
+                    ))}
+                  </ScrollArea>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className={styles.itemWrapper}>
+            <p className={styles.filterTitle}>Username</p>
+            <input
+              placeholder="User"
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
+              className={styles.input}
+            />
+          </div>
+
+          <div className={styles.itemWrapper}>
+            <p className={styles.filterTitle}>Email</p>
+            <input
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={styles.input}
+            />
+          </div>
+
+          <div className={styles.itemWrapper}>
+            <p className={styles.filterTitle}>Date</p>
+
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={'outline'}
+                  className={`${styles.organizationSelect} ${styles.dateSelect}`}
+                >
+                  {date ? format(date, 'PPP') : 'Date'}
+                  <Image
+                    src={'/assets/svgs/calendar.svg'}
+                    alt="calendar"
+                    width={16}
+                    height={16}
+                  />
+                </Button>
+              </PopoverTrigger>
+
+              <PopoverContent className="w-auto p-0">
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          <div className={styles.itemWrapper}>
+            <p className={styles.filterTitle}>Phone Number</p>
+            <input
+              placeholder="Phone Number"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className={styles.input}
+            />
+          </div>
+
+          <div className={styles.itemWrapper}>
+            <p className={styles.filterTitle}>Status</p>
+            <Select value={status} onValueChange={(value) => setStatus(value)}>
+              <SelectTrigger className={styles.organizationSelect}>
+                <SelectValue placeholder="Select" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="Active" className={styles.selectText}>
+                    Active
+                  </SelectItem>
+                  <SelectItem value="Inactive" className={styles.selectText}>
+                    Inactive
+                  </SelectItem>
+                  <SelectItem value="Pending" className={styles.selectText}>
+                    Pending
+                  </SelectItem>
+                  <SelectItem value="Blacklisted" className={styles.selectText}>
+                    Blacklisted
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className={styles.actions}>
+            <button className={styles.reset} onClick={resetHandler}>
+              Reset
+            </button>
+            <button className={styles.filter} onClick={filterHandler}>
+              Filter
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div className={styles.table}>
         <Table>
           <TableHeader>
@@ -133,12 +268,16 @@ export function DataTable<TData, TValue>({
               >
                 {headerGroup.headers.map((header, index) => {
                   return (
-                    <TableHead key={header.id} className={styles.tableHead}>
+                    <TableHead
+                      key={header.id}
+                      className={styles.tableHead}
+                      onClick={() => setShowFilter((prev) => !prev)}
+                    >
                       <>
-                        <div
+                        {/* <div
                           className={styles.tableHead__overlay}
                           onClick={() => setShowFilter((prev) => !prev)}
-                        />
+                        /> */}
 
                         {header.isPlaceholder
                           ? null
@@ -146,181 +285,6 @@ export function DataTable<TData, TValue>({
                               header.column.columnDef.header,
                               header.getContext(),
                             )}
-
-                        {!index ? (
-                          <div
-                            className={`${styles.filters} ${
-                              showFilter ? styles.filtersOpen : ''
-                            }`}
-                          >
-                            <div
-                              className={styles.overlay}
-                              onClick={() => setShowFilter(false)}
-                            />
-
-                            <div className={styles.filters__inner}>
-                              <div className={styles.itemWrapper}>
-                                <p className={styles.filterTitle}>
-                                  Organization
-                                </p>
-                                <Select
-                                  value={organization}
-                                  onValueChange={(value) => {
-                                    setOrganization(value);
-                                  }}
-                                >
-                                  <SelectTrigger
-                                    className={styles.organizationSelect}
-                                  >
-                                    <SelectValue placeholder="Select" />
-                                  </SelectTrigger>
-
-                                  <SelectContent>
-                                    <SelectGroup>
-                                      <ScrollArea className={styles.scrollArea}>
-                                        {organizations?.map(
-                                          (organization, index) => (
-                                            <SelectItem
-                                              key={index}
-                                              value={organization}
-                                              className={styles.selectText}
-                                            >
-                                              {organization}
-                                            </SelectItem>
-                                          ),
-                                        )}
-                                      </ScrollArea>
-                                    </SelectGroup>
-                                  </SelectContent>
-                                </Select>
-                              </div>
-
-                              <div className={styles.itemWrapper}>
-                                <p className={styles.filterTitle}>Username</p>
-                                <input
-                                  placeholder="User"
-                                  value={user}
-                                  onChange={(e) => setUser(e.target.value)}
-                                  className={styles.input}
-                                />
-                              </div>
-
-                              <div className={styles.itemWrapper}>
-                                <p className={styles.filterTitle}>Email</p>
-                                <input
-                                  placeholder="Email"
-                                  value={email}
-                                  onChange={(e) => setEmail(e.target.value)}
-                                  className={styles.input}
-                                />
-                              </div>
-
-                              <div className={styles.itemWrapper}>
-                                <p className={styles.filterTitle}>Date</p>
-
-                                <Popover>
-                                  <PopoverTrigger asChild>
-                                    <Button
-                                      variant={'outline'}
-                                      className={`${styles.organizationSelect} ${styles.dateSelect}`}
-                                    >
-                                      {date ? format(date, 'PPP') : 'Date'}
-                                      <Image
-                                        src={'/assets/svgs/calendar.svg'}
-                                        alt="calendar"
-                                        width={16}
-                                        height={16}
-                                      />
-                                    </Button>
-                                  </PopoverTrigger>
-
-                                  <PopoverContent className="w-auto p-0">
-                                    <Calendar
-                                      mode="single"
-                                      selected={date}
-                                      onSelect={setDate}
-                                      initialFocus
-                                    />
-                                  </PopoverContent>
-                                </Popover>
-                              </div>
-
-                              <div className={styles.itemWrapper}>
-                                <p className={styles.filterTitle}>
-                                  Phone Number
-                                </p>
-                                <input
-                                  placeholder="Phone Number"
-                                  value={phoneNumber}
-                                  onChange={(e) =>
-                                    setPhoneNumber(e.target.value)
-                                  }
-                                  className={styles.input}
-                                />
-                              </div>
-
-                              <div className={styles.itemWrapper}>
-                                <p className={styles.filterTitle}>Status</p>
-                                <Select
-                                  value={status}
-                                  onValueChange={(value) => setStatus(value)}
-                                >
-                                  <SelectTrigger
-                                    className={styles.organizationSelect}
-                                  >
-                                    <SelectValue placeholder="Select" />
-                                  </SelectTrigger>
-
-                                  <SelectContent>
-                                    <SelectGroup>
-                                      <SelectItem
-                                        value="Active"
-                                        className={styles.selectText}
-                                      >
-                                        Active
-                                      </SelectItem>
-                                      <SelectItem
-                                        value="Inactive"
-                                        className={styles.selectText}
-                                      >
-                                        Inactive
-                                      </SelectItem>
-                                      <SelectItem
-                                        value="Pending"
-                                        className={styles.selectText}
-                                      >
-                                        Pending
-                                      </SelectItem>
-                                      <SelectItem
-                                        value="Blacklisted"
-                                        className={styles.selectText}
-                                      >
-                                        Blacklisted
-                                      </SelectItem>
-                                    </SelectGroup>
-                                  </SelectContent>
-                                </Select>
-                              </div>
-
-                              <div className={styles.actions}>
-                                <button
-                                  className={styles.reset}
-                                  onClick={resetHandler}
-                                >
-                                  Reset
-                                </button>
-                                <button
-                                  className={styles.filter}
-                                  onClick={filterHandler}
-                                >
-                                  Filter
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        ) : (
-                          <></>
-                        )}
                       </>
                     </TableHead>
                   );

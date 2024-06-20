@@ -207,12 +207,6 @@
   cursor: not-allowed;
 }
 
-.tableHead__overlay {
-  position: absolute;
-  inset: 0;
-  cursor: pointer;
-}
-
 .filtersOpen {
   display: block;
 
@@ -228,9 +222,13 @@
 .overlay {
   position: absolute;
   inset: 0;
+  top: -35px;
   z-index: 3;
-  height: max(600px, 100vh);
-  left: 272px;
+  height: max(705px, 100vh);
+}
+
+.wrapperOpen {
+  min-height: max(670px, 100vh);
 }
 
 .actions {

@@ -28,7 +28,7 @@ export default function RootLayout({
 
       <div className={styles.main} ref={ref}>
         <Header />
-        <div className={styles.children}>{children}</div>
+        <div className={styles.main__children}>{children}</div>
       </div>
     </div>
   );

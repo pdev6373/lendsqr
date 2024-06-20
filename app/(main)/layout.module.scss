@@ -10,8 +10,8 @@
   flex-grow: 1;
   overflow-y: auto;
   position: relative;
-}
 
-.children {
-  padding: clamp(24px, 4.165vw, 60px);
+  &__children {
+    padding: clamp(24px, 4.165vw, 60px);
+  }
 }
