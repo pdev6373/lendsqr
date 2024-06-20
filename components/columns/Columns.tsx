@@ -1,9 +1,9 @@
 'use client';
-import styles from './columns.module.scss';
+import styles from './Columns.module.scss';
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
 import { UserOverviewType } from '@/context/MainContext';
-import Actions from './actions';
+import { Actions } from '@/components/index';
 
 export const columns: ColumnDef<UserOverviewType>[] = [
   {

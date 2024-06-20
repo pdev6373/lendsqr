@@ -5,7 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import styles from './actions.module.css';
+import styles from './Actions.module.css';
 import Image from 'next/image';
 import { useContext } from 'react';
 import { MainContext, UserOverviewType } from '@/context/MainContext';

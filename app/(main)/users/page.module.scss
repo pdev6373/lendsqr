@@ -5,54 +5,64 @@
   gap: clamp(30px, 2.777777778vw, 40px);
 }
 
-.title {
-  font-size: 20px;
-  line-height: 1.172916667;
-  font-weight: 500;
-  color: #213f7d;
-}
+.header {
+  gap: clamp(20px, 2.777777778vw, 40px);
 
-.users {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(13.5em, 100%), 1fr));
-  gap: clamp(16px, 1.805555556vw, 26px);
-}
+  &__title {
+    font-size: 20px;
+    line-height: 1.172916667;
+    font-weight: 500;
+    color: #213f7d;
+  }
 
-.user {
-  box-shadow: 3px 5px 20px 0px #0000000a;
-  border: 1px solid #213f7d0f;
-  border-radius: 4px;
-  padding: 20px;
-  background-color: #fff;
-}
+  &__users {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(13.5em, 100%), 1fr));
+    gap: clamp(16px, 1.805555556vw, 26px);
 
-.type {
-  font-weight: 500;
-  margin-block: 14px 12px;
-  font-size: 14px;
-  line-height: 1.172857143;
-  color: #545f7d;
-}
+    &__user {
+      box-shadow: 3px 5px 20px 0px #0000000a;
+      border: 1px solid #213f7d0f;
+      border-radius: 4px;
+      padding: 20px;
+      background-color: #fff;
 
-.amount {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.172916667;
-  color: #213f7d;
+      &__type {
+        font-weight: 500;
+        margin-block: 14px 12px;
+        font-size: 14px;
+        line-height: 1.172857143;
+        color: #545f7d;
+        text-transform: uppercase;
+      }
+
+      &__amount {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.172916667;
+        color: #213f7d;
+      }
+    }
+  }
 }
 
 @media (min-width: 500px) {
-  .users {
-    gap: clamp(20px, 1.805555556vw, 26px);
-  }
+  .header {
+    &__title {
+      font-size: 24px;
+    }
 
-  .user {
-    padding: 20px clamp(24px, 2.083333333vw, 30px)
-      clamp(24px, 2.083333333vw, 30px);
-  }
+    &__users {
+      gap: clamp(20px, 1.805555556vw, 26px);
 
-  .amount,
-  .title {
-    font-size: 24px;
+      &__user {
+        padding: 20px clamp(24px, 2.083333333vw, 30px)
+          clamp(24px, 2.083333333vw, 30px);
+
+        &__amount {
+          font-size: 24px;
+        }
+      }
+    }
   }
 }

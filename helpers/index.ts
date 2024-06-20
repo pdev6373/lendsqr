@@ -11,7 +11,7 @@ export function truncateEmail(email: string) {
     localPart = localPart.slice(0, -1);
   }
 
-  return `${localPart}@${domainPart}`;
+  return `${localPart}@${domainPart}`.toLowerCase();
 }
 
 export function formatCurrency(currency: string | number) {

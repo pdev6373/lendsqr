@@ -1,5 +1,5 @@
 'use client';
-import styles from './dataTable.module.scss';
+import styles from './DataTable.module.scss';
 
 import {
   ColumnDef,
@@ -49,7 +49,7 @@ interface DataTableProps<TData, TValue> {
 
 const pageSizeOptions = [20, 40, 60, 80, 100];
 
-export function DataTable<TData, TValue>({
+export default function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -64,6 +64,11 @@ export function DataTable<TData, TValue>({
   const [tableData, setTableData] = useState<UserOverviewType[]>(data);
 
   const filterHandler = () => {
+    if (!organization && !user && !email && !date && !phoneNumber && !status) {
+      resetHandler();
+      return;
+    }
+
     setTableData(
       (data as UserOverviewType[]).filter(
         (data) =>
@@ -125,12 +130,31 @@ export function DataTable<TData, TValue>({
     <div
       className={`${styles.wrapper} ${showFilter ? styles.wrapperOpen : ''}`}
     >
+      {showFilter ? (
+        <>
+          <div
+            className={styles.overlayTop}
+            onClick={() => setShowFilter(false)}
+          />
+          <div
+            className={styles.overlay}
+            onClick={() => setShowFilter(false)}
+          />
+        </>
+      ) : (
+        <></>
+      )}
+
       <div
         className={`${styles.filters} ${showFilter ? styles.filtersOpen : ''}`}
       >
-        <div className={styles.overlay} onClick={() => setShowFilter(false)} />
-
-        <div className={styles.filters__inner}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            filterHandler();
+          }}
+          className={styles.filters__inner}
+        >
           <div className={styles.itemWrapper}>
             <p className={styles.filterTitle}>Organization</p>
             <Select
@@ -248,14 +272,22 @@ export function DataTable<TData, TValue>({
           </div>
 
           <div className={styles.actions}>
-            <button className={styles.reset} onClick={resetHandler}>
+            <button
+              className={styles.reset}
+              onClick={resetHandler}
+              type="button"
+            >
               Reset
             </button>
-            <button className={styles.filter} onClick={filterHandler}>
+            <button
+              className={styles.filter}
+              type="submit"
+              onClick={filterHandler}
+            >
               Filter
             </button>
           </div>
-        </div>
+        </form>
       </div>
 
       <div className={styles.table}>

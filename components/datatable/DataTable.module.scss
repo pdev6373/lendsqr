@@ -176,9 +176,7 @@
   position: absolute;
   z-index: 5;
   left: 0;
-
   width: 100vw;
-  // overflow: hidden;
   top: 35px;
   display: none;
 
@@ -219,16 +217,26 @@
   }
 }
 
+.overlayTop {
+  position: absolute;
+  top: 0;
+  height: 35px;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  cursor: pointer;
+}
+
 .overlay {
   position: absolute;
   inset: 0;
-  top: -35px;
   z-index: 3;
-  height: max(705px, 100vh);
+  left: 270px;
+  cursor: pointer;
 }
 
 .wrapperOpen {
-  min-height: max(670px, 100vh);
+  min-height: 642px;
 }
 
 .actions {
@@ -258,6 +266,11 @@
   border: 1px solid #39cdcc;
   background-color: #39cdcc;
   color: #ffffff;
+  transition: background-color 0.14s ease-in-out;
+}
+
+.filter:hover {
+  background-color: #39cdcddd;
 }
 
 .pagination {
@@ -305,5 +318,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+}
+
+@media (min-width: 1250px) {
+  .wrapperOpen {
+    min-height: 670px;
   }
 }
