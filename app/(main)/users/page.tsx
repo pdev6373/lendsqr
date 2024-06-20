@@ -31,14 +31,14 @@ const usersDetails = [
 ];
 
 export default function Users() {
-  const { users, fetchingUsers, setUsers, setFetchingUsers } =
-    useContext(MainContext);
+  const { users, setUsers } = useContext(MainContext);
   const [tableData, setTableData] = useState<UserOverviewType[]>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
-      setFetchingUsers(true);
-      fetch('https://demo1391722.mockable.io/users', { method: 'GET' })
+      setLoading(true);
+      fetch('https://apimocha.com/lendsqr/users', { method: 'GET' })
         .then((response) => response.json())
         .then((json) => {
           setUsers(json);
@@ -46,7 +46,7 @@ export default function Users() {
     } catch (e) {
       console.log(e);
     } finally {
-      setFetchingUsers(false);
+      setLoading(false);
     }
   }, []);
 
@@ -66,7 +66,7 @@ export default function Users() {
       );
   }, [users]);
 
-  if (fetchingUsers)
+  if (loading || !tableData)
     return (
       <div className={styles.loading}>
         <div />
@@ -83,7 +83,7 @@ export default function Users() {
       </div>
     );
 
-  if (!users && !fetchingUsers) return <></>;
+  if (!users && !loading) return <></>;
 
   return (
     <div className={styles.wrapper}>

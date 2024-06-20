@@ -15,14 +15,14 @@
 
 ## Overview
 
-This project is an assessment application built with Next.js and SCSS for managing users and their loan/financial status. The main features include user login, logout, viewing user details, searching and filtering users, and navigating through paginated user data. The project uses mock data of 500 records for demonstration purposes.
+This project was built with Next.js and SCSS. The main features include user login, logout, viewing user details, searching and filtering users, and navigating through paginated user data. The project uses mock data of 500 records for demonstration purposes.
 
 ## Features
 
 - **Authentication**: Login and logout functionality using dummy email and password.
 - **User Management**: View all users, search users, filter users, and navigate through user pages.
 - **Local Storage**: Persist user data and login state.
-- **External Services**: Mock `https://www.jsongenerator.io/` to create mock data, `https://apimocha.com/` to create endpoints to fetch mock data.
+- **External Services**: `https://www.jsongenerator.io/` to create mock data, `https://apimocha.com/` to create endpoints to fetch mock data.
 
 ## Technologies Used
 
@@ -38,7 +38,7 @@ This project is an assessment application built with Next.js and SCSS for managi
 
 - **User List**: Fetches all users from a mock external service and displays them in a table format.
 - **View Details**: Clicking "View Details" in a user row stores the user info in local storage and navigates to `/users/${username}` page.
-- **User Actions**: On the user details page, clicking the "Activate" and "Blacklist" buttons changes them to "Deactivate" and "Whitelist" respectively, simulating and updated user state.
+- **User Actions**: On the user details page, clicking the "Activate" and "Blacklist" buttons changes them to "Deactivate" and "Whitelist" respectively, simulating an updated user state.
 
 ## Search Functionality
 
