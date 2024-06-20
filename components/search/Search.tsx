@@ -24,13 +24,13 @@ export default function Search({
       }}
     >
       <input
-        className={styles.input}
+        className={styles.wrapper__input}
         placeholder={placeHolder}
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
 
-      <button className={styles.searchIcon}>
+      <button className={styles.wrapper__search}>
         <Image
           src={'/assets/svgs/search.svg'}
           alt="search"

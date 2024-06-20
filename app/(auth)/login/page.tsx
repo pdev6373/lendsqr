@@ -141,7 +141,7 @@ export default function Login() {
             )}
           </div>
 
-          <div className={styles.main__input}>
+          <div className={styles.main__form__input}>
             <Input
               placeHolder="Password"
               value={password}

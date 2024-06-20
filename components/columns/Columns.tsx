@@ -153,10 +153,10 @@ export const columns: ColumnDef<UserOverviewType>[] = [
       const value = getValue() as string;
 
       return (
-        <div className={styles.tableCellStatusWrapper}>
+        <div className={styles.statusWrapper}>
           <div
             className={(() => {
-              return `${styles.tableCellStatus} ${
+              return `${styles.statusWrapper__status} ${
                 value === 'Pending'
                   ? styles.pending
                   : value === 'Blacklisted'

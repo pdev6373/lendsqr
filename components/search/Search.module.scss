@@ -5,51 +5,53 @@
   gap: 6px;
   overflow: hidden;
   width: min(400px, 100%);
-}
 
-.wrapper:focus-within {
-  outline: 2px solid #39cdcd33;
-  border-color: #cdd0da1d;
-  outline-offset: -1px;
-}
+  &:focus-within {
+    outline: 2px solid #39cdcd33;
+    border-color: #cdd0da1d;
+    outline-offset: -1px;
+  }
 
-.searchIcon {
-  background-color: #39cdcc;
-  padding: 12px 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.14s ease-in-out;
-}
+  &__input {
+    flex-grow: 1;
+    padding: 16px 10px;
+    color: #545f7d;
+  }
 
-.searchIcon:hover {
-  background-color: #39cdcddd;
-}
+  &__input,
+  &__input::placeholder {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.42px;
+  }
 
-.input {
-  flex-grow: 1;
-  padding: 16px 10px;
-  color: #545f7d;
-}
+  &__input::placeholder {
+    color: #545f7db3;
+  }
 
-.input,
-.input::placeholder {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 16.42px;
-}
+  &__search {
+    background-color: #39cdcc;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.14s ease-in-out;
 
-.input::placeholder {
-  color: #545f7db3;
+    &:hover {
+      background-color: #39cdcddd;
+    }
+  }
 }
 
 @media (min-width: 500px) {
-  .input {
-    padding: clamp(10px, 0.833333333vw, 12px) clamp(16px, 1.388888889vw, 20px);
-  }
+  .wrapper {
+    &__input {
+      padding: clamp(10px, 0.833333333vw, 12px) clamp(16px, 1.388888889vw, 20px);
+    }
 
-  .searchIcon {
-    padding: clamp(10px, 0.833333333vw, 12px) clamp(16px, 1.388888889vw, 20px);
+    &__search {
+      padding: clamp(10px, 0.833333333vw, 12px) clamp(16px, 1.388888889vw, 20px);
+    }
   }
 }

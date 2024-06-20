@@ -31,8 +31,24 @@ const usersDetails = [
 ];
 
 export default function Users() {
-  const { users, search, fetchingUsers } = useContext(MainContext);
+  const { users, fetchingUsers, setUsers, setFetchingUsers } =
+    useContext(MainContext);
   const [tableData, setTableData] = useState<UserOverviewType[]>();
+
+  useEffect(() => {
+    try {
+      setFetchingUsers(true);
+      fetch('https://demo1391722.mockable.io/users', { method: 'GET' })
+        .then((response) => response.json())
+        .then((json) => {
+          setUsers(json);
+        });
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setFetchingUsers(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (users)
@@ -75,40 +91,7 @@ export default function Users() {
         </div>
       </section>
 
-      {!tableData ? (
-        <></>
-      ) : (
-        <DataTable
-          columns={columns}
-          data={tableData?.filter(
-            (user) =>
-              user.organization
-                .toLowerCase()
-                .trim()
-                .includes(search.toLowerCase().trim()) ||
-              user.username
-                .toLowerCase()
-                .trim()
-                .includes(search.toLowerCase().trim()) ||
-              user.email
-                .toLowerCase()
-                .trim()
-                .includes(search.toLowerCase().trim()) ||
-              user.phoneNumber
-                .toLowerCase()
-                .trim()
-                .includes(search.toLowerCase().trim()) ||
-              (user.dateJoined as string)
-                .toLowerCase()
-                .trim()
-                .includes(search.toLowerCase().trim()) ||
-              user.status
-                .toLowerCase()
-                .trim()
-                .includes(search.toLowerCase().trim()),
-          )}
-        />
-      )}
+      {!tableData ? <></> : <DataTable columns={columns} data={tableData} />}
     </div>
   );
 }

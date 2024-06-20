@@ -28,7 +28,7 @@ import {
 } from '@/components/ui/select';
 
 import Image from 'next/image';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { format } from 'date-fns';
 
@@ -60,10 +60,45 @@ export default function DataTable<TData, TValue>({
   const [phoneNumber, setPhoneNumber] = useState('');
   const [status, setStatus] = useState<string>();
   const [showFilter, setShowFilter] = useState(false);
-  const { organizations } = useContext(MainContext);
+  const { organizations, search, setSearchValue } = useContext(MainContext);
   const [tableData, setTableData] = useState<UserOverviewType[]>(data);
 
+  useEffect(() => {
+    resetHandler();
+
+    setTableData(
+      data?.filter(
+        (user) =>
+          user.organization
+            .toLowerCase()
+            .trim()
+            .includes(search.toLowerCase().trim()) ||
+          user.username
+            .toLowerCase()
+            .trim()
+            .includes(search.toLowerCase().trim()) ||
+          user.email
+            .toLowerCase()
+            .trim()
+            .includes(search.toLowerCase().trim()) ||
+          user.phoneNumber
+            .toLowerCase()
+            .trim()
+            .includes(search.toLowerCase().trim()) ||
+          (user.dateJoined as string)
+            .toLowerCase()
+            .trim()
+            .includes(search.toLowerCase().trim()) ||
+          user.status
+            .toLowerCase()
+            .trim()
+            .includes(search.toLowerCase().trim()),
+      ),
+    );
+  }, [search]);
+
   const filterHandler = () => {
+    setSearchValue('');
     if (!organization && !user && !email && !date && !phoneNumber && !status) {
       resetHandler();
       return;
@@ -155,15 +190,17 @@ export default function DataTable<TData, TValue>({
           }}
           className={styles.filters__inner}
         >
-          <div className={styles.itemWrapper}>
-            <p className={styles.filterTitle}>Organization</p>
+          <div className={styles.filters__inner__items}>
+            <p className={styles.filters__inner__items__title}>Organization</p>
             <Select
               value={organization}
               onValueChange={(value) => {
                 setOrganization(value);
               }}
             >
-              <SelectTrigger className={styles.organizationSelect}>
+              <SelectTrigger
+                className={styles.filters__inner__items__organization}
+              >
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
 
@@ -174,7 +211,9 @@ export default function DataTable<TData, TValue>({
                       <SelectItem
                         key={index}
                         value={organization}
-                        className={styles.selectText}
+                        className={
+                          styles.filters__inner__items__organization__text
+                        }
                       >
                         {organization}
                       </SelectItem>
@@ -185,34 +224,34 @@ export default function DataTable<TData, TValue>({
             </Select>
           </div>
 
-          <div className={styles.itemWrapper}>
-            <p className={styles.filterTitle}>Username</p>
+          <div className={styles.filters__inner__items}>
+            <p className={styles.filters__inner__items__title}>Username</p>
             <input
               placeholder="User"
               value={user}
               onChange={(e) => setUser(e.target.value)}
-              className={styles.input}
+              className={styles.filters__inner__items__input}
             />
           </div>
 
-          <div className={styles.itemWrapper}>
-            <p className={styles.filterTitle}>Email</p>
+          <div className={styles.filters__inner__items}>
+            <p className={styles.filters__inner__items__title}>Email</p>
             <input
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={styles.input}
+              className={styles.filters__inner__items__input}
             />
           </div>
 
-          <div className={styles.itemWrapper}>
-            <p className={styles.filterTitle}>Date</p>
+          <div className={styles.filters__inner__items}>
+            <p className={styles.filters__inner__items__title}>Date</p>
 
             <Popover>
               <PopoverTrigger asChild>
                 <Button
                   variant={'outline'}
-                  className={`${styles.organizationSelect} ${styles.dateSelect}`}
+                  className={`${styles.filters__inner__items__organization} ${styles.filters__inner__items__date}`}
                 >
                   {date ? format(date, 'PPP') : 'Date'}
                   <Image
@@ -235,35 +274,49 @@ export default function DataTable<TData, TValue>({
             </Popover>
           </div>
 
-          <div className={styles.itemWrapper}>
-            <p className={styles.filterTitle}>Phone Number</p>
+          <div className={styles.filters__inner__items}>
+            <p className={styles.filters__inner__items__title}>Phone Number</p>
             <input
               placeholder="Phone Number"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              className={styles.input}
+              className={styles.filters__inner__items__input}
             />
           </div>
 
-          <div className={styles.itemWrapper}>
-            <p className={styles.filterTitle}>Status</p>
+          <div className={styles.filters__inner__items}>
+            <p className={styles.filters__inner__items__title}>Status</p>
             <Select value={status} onValueChange={(value) => setStatus(value)}>
-              <SelectTrigger className={styles.organizationSelect}>
+              <SelectTrigger
+                className={styles.filters__inner__items__organization}
+              >
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
 
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value="Active" className={styles.selectText}>
+                  <SelectItem
+                    value="Active"
+                    className={styles.filters__inner__items__organization__text}
+                  >
                     Active
                   </SelectItem>
-                  <SelectItem value="Inactive" className={styles.selectText}>
+                  <SelectItem
+                    value="Inactive"
+                    className={styles.filters__inner__items__organization__text}
+                  >
                     Inactive
                   </SelectItem>
-                  <SelectItem value="Pending" className={styles.selectText}>
+                  <SelectItem
+                    value="Pending"
+                    className={styles.filters__inner__items__organization__text}
+                  >
                     Pending
                   </SelectItem>
-                  <SelectItem value="Blacklisted" className={styles.selectText}>
+                  <SelectItem
+                    value="Blacklisted"
+                    className={styles.filters__inner__items__organization__text}
+                  >
                     Blacklisted
                   </SelectItem>
                 </SelectGroup>
@@ -273,14 +326,14 @@ export default function DataTable<TData, TValue>({
 
           <div className={styles.actions}>
             <button
-              className={styles.reset}
+              className={styles.actions__reset}
               onClick={resetHandler}
               type="button"
             >
               Reset
             </button>
             <button
-              className={styles.filter}
+              className={styles.actions__filter}
               type="submit"
               onClick={filterHandler}
             >
@@ -296,28 +349,21 @@ export default function DataTable<TData, TValue>({
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
                 key={headerGroup.id}
-                style={{ border: 0, cursor: 'pointer' }}
+                className={styles.table__header__row}
               >
-                {headerGroup.headers.map((header, index) => {
+                {headerGroup.headers.map((header) => {
                   return (
                     <TableHead
                       key={header.id}
-                      className={styles.tableHead}
+                      className={styles.table__header__row__cell}
                       onClick={() => setShowFilter((prev) => !prev)}
                     >
-                      <>
-                        {/* <div
-                          className={styles.tableHead__overlay}
-                          onClick={() => setShowFilter((prev) => !prev)}
-                        /> */}
-
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                      </>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                     </TableHead>
                   );
                 })}
@@ -333,7 +379,10 @@ export default function DataTable<TData, TValue>({
                   data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className={styles.tableCell}>
+                    <TableCell
+                      key={cell.id}
+                      className={styles.table__body__row__cell}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),
@@ -344,7 +393,10 @@ export default function DataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className={styles.noResult}>
+                <TableCell
+                  colSpan={columns.length}
+                  className={styles.table__empty}
+                >
                   No results.
                 </TableCell>
               </TableRow>
@@ -354,8 +406,10 @@ export default function DataTable<TData, TValue>({
       </div>
 
       <div className={styles.bottom}>
-        <div className={styles.inputWrapper}>
-          <p className={`${styles.bottom__left__text} ${styles.showing}`}>
+        <div className={styles.bottom__input}>
+          <p
+            className={`${styles.bottom__input__text} ${styles.bottom__input__showingText}`}
+          >
             Showing
           </p>
 
@@ -363,19 +417,19 @@ export default function DataTable<TData, TValue>({
             value={table.getState().pagination.pageSize.toString()}
             onValueChange={(value) => table.setPageSize(Number(value))}
           >
-            <SelectTrigger className={styles.trigger}>
+            <SelectTrigger className={styles.bottom__input__trigger}>
               <SelectValue placeholder={table.getState().pagination.pageSize} />
             </SelectTrigger>
-            <SelectContent side="top" className={styles.selectContent}>
+            <SelectContent side="top">
               {pageSizeOptions.map((pageSize) => (
                 <SelectItem key={pageSize} value={`${pageSize}`}>
-                  <p className={styles.pageSize}>{pageSize}</p>
+                  <p className={styles.bottom__input__size}>{pageSize}</p>
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
 
-          <p className={styles.bottom__left__text}>
+          <p className={styles.bottom__input__text}>
             {`out of ${table.getRowCount()}`}
           </p>
         </div>
@@ -392,7 +446,7 @@ export default function DataTable<TData, TValue>({
               width={24}
               height={24}
               onClick={() => table.getCanPreviousPage() && table.previousPage()}
-              className={`${styles.control} ${
+              className={`${styles.controls__control} ${
                 table.getCanPreviousPage() ? '' : styles.notAllowed
               }`}
             />
@@ -411,24 +465,24 @@ export default function DataTable<TData, TValue>({
                 return (
                   <>
                     <p
-                      className={`${styles.paginationNumber} ${
-                        currentPage() === 1 ? styles.paginationActive : ''
+                      className={`${styles.pagination__number} ${
+                        currentPage() === 1 ? styles.pagination__active : ''
                       }`}
                       onClick={() => table.setPageIndex(0)}
                     >
                       1
                     </p>
                     <p
-                      className={`${styles.paginationNumber} ${
-                        currentPage() === 2 ? styles.paginationActive : ''
+                      className={`${styles.pagination__number} ${
+                        currentPage() === 2 ? styles.pagination__active : ''
                       }`}
                       onClick={() => table.setPageIndex(1)}
                     >
                       2
                     </p>
                     <p
-                      className={`${styles.paginationNumber} ${
-                        currentPage() === 3 ? styles.paginationActive : ''
+                      className={`${styles.pagination__number} ${
+                        currentPage() === 3 ? styles.pagination__active : ''
                       }`}
                       onClick={() => table.setPageIndex(2)}
                     >
@@ -438,16 +492,16 @@ export default function DataTable<TData, TValue>({
                     {table.getPageCount() > 5 ? (
                       <>
                         <p
-                          className={`${styles.paginationNumber}`}
+                          className={`${styles.pagination__number}`}
                           style={{ cursor: 'not-allowed' }}
                         >
                           ...
                         </p>
 
                         <p
-                          className={`${styles.paginationNumber} ${
+                          className={`${styles.pagination__number} ${
                             currentPage() === table.getPageCount() - 1
-                              ? styles.paginationActive
+                              ? styles.pagination__active
                               : ''
                           }`}
                           onClick={() =>
@@ -457,9 +511,9 @@ export default function DataTable<TData, TValue>({
                           {table.getPageCount() - 1}
                         </p>
                         <p
-                          className={`${styles.paginationNumber} ${
+                          className={`${styles.pagination__number} ${
                             currentPage() === table.getPageCount()
-                              ? styles.paginationActive
+                              ? styles.pagination__active
                               : ''
                           }`}
                           onClick={() =>
@@ -489,7 +543,7 @@ export default function DataTable<TData, TValue>({
               width={24}
               height={24}
               onClick={() => table.getCanNextPage() && table.nextPage()}
-              className={`${styles.control} ${
+              className={`${styles.controls__control} ${
                 table.getCanNextPage() ? '' : styles.notAllowed
               }`}
             />

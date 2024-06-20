@@ -34,36 +34,36 @@
   z-index: 0;
 }
 
-.logoWrapperOuter {
+.logo {
   position: sticky;
   top: 0;
   z-index: 10;
   padding: 16px clamp(24px, 2.083333333vw, 30px);
   background-color: #fff;
   box-shadow: -15px 0px 20px 0px #0000000a;
-}
 
-.logoWrapperInner {
-  height: clamp(40px, 3.333333333vw, 48px);
-  display: flex;
-  justify-content: space-between;
-}
+  &__inner {
+    height: clamp(40px, 3.333333333vw, 48px);
+    display: flex;
+    justify-content: space-between;
 
-.logoWrapperInner > * {
-  display: flex;
-  align-items: center;
-}
+    & > * {
+      display: flex;
+      align-items: center;
+    }
 
-.logoWrapper {
-  position: relative;
-  width: clamp(110px, 10.055555556vw, 144.8px);
-  aspect-ratio: 4.826666667 / 1;
-}
+    &__wrapper {
+      position: relative;
+      width: clamp(110px, 10.055555556vw, 144.8px);
+      aspect-ratio: 4.826666667 / 1;
 
-.logo {
-  position: absolute;
-  width: unset !important;
-  height: 100% !important;
+      &__image {
+        position: absolute;
+        width: unset !important;
+        height: 100% !important;
+      }
+    }
+  }
 }
 
 .nav {
@@ -74,126 +74,127 @@
   background-color: #fff;
   overflow-y: auto;
   height: 100%;
-}
 
-.nav::-webkit-scrollbar {
-  width: 7px;
-}
+  &::-webkit-scrollbar {
+    width: 11px;
+  }
 
-.nav::-webkit-scrollbar-track {
-  background: transparent;
-  margin-block: 3px;
-}
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    margin-block: 1px;
+  }
 
-.nav::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 8px;
-  opacity: 0;
-  transition: all 0.3s;
-}
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 8px;
+    opacity: 0;
+    transition: all 0.3s;
+    border: 2px solid white;
+  }
 
-.nav:hover::-webkit-scrollbar-thumb {
-  background: transparent;
-  opacity: 1;
-  transition: all 0.3s;
-}
+  &:hover::-webkit-scrollbar-thumb {
+    background: transparent;
+    opacity: 1;
+    transition: all 0.3s;
+  }
 
-.nav:hover::-webkit-scrollbar-thumb:hover {
-  background: #40d9d9c6;
-}
+  &:hover::-webkit-scrollbar-thumb:hover {
+    background: #40d9d9c6;
+  }
 
-.nav__top {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(36px, 3.611111111vw, 52px);
-}
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(28px, 2.847222222vw, 41px);
 
-.nav__top__content {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 11px clamp(24px, 2.083333333vw, 30px) 11px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
+    &__top {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(36px, 3.611111111vw, 52px);
 
-.nav__top__content:hover {
-  background-color: #39cdcc0f;
-}
+      &__content {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 11px clamp(24px, 2.083333333vw, 30px) 11px;
+        cursor: pointer;
+        transition: all 0.15s;
 
-.nav__top__content__active {
-  background-color: #39cdcc0f;
-  position: relative;
-}
+        &:hover {
+          background-color: #39cdcc0f;
+        }
 
-.nav__top__content__active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background-color: #39cdcc;
-}
+        &__darkText,
+        &__lightText {
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 18px;
+        }
 
-.nav__text__dark,
-.nav__text__light {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
-}
+        &__lightText {
+          color: #213f7d99;
+        }
 
-.nav__main {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(28px, 2.847222222vw, 41px);
-}
+        &__darkText {
+          color: #213f7d;
+        }
 
-.nav__text__light {
-  color: #213f7d99;
-}
+        &__active {
+          background-color: #39cdcc0f;
+          position: relative;
 
-.nav__text__dark {
-  color: #213f7d;
+          &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #39cdcc;
+          }
+        }
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      &__title {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 14.08px;
+        color: #545f7d;
+        margin-inline: clamp(24px, 2.083333333vw, 30px);
+      }
+
+      &__links {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+      }
+    }
+  }
 }
 
 .nav__iconWrapper {
   position: relative;
   width: 16px;
   height: 16px;
-}
 
-.nav__iconWrapper__icon {
-  position: absolute;
-  width: unset !important;
-}
-
-.nav__content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.nav__title {
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 14.08px;
-  color: #545f7d;
-  margin-inline: clamp(24px, 2.083333333vw, 30px);
-}
-
-.nav_links {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
+  &__icon {
+    position: absolute;
+    width: unset !important;
+  }
 }
 
 .close {
   cursor: pointer;
 }
 
-.logoutWrapper {
+.logout {
   display: flex;
   flex-direction: column;
   gap: clamp(28px, 2.847222222vw, 41px);
@@ -211,27 +212,41 @@
 }
 
 @media (min-width: 500px) {
-  .nav__top__content,
+  .nav {
+    &__main {
+      &__top {
+        &__content {
+          &__darkText,
+          &__lightText {
+            font-size: 16px;
+            line-height: 18.77px;
+          }
+        }
+      }
+    }
+
+    &__top {
+      &__content {
+        padding: 11px clamp(28px, 3.263888889vw, 47px) 11px
+          clamp(24px, 2.083333333vw, 30px);
+      }
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(57, 205, 205, 0.23);
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+      background: #39cdcd96;
+    }
+  }
+
   .version {
     padding: 11px clamp(28px, 3.263888889vw, 47px) 11px
       clamp(24px, 2.083333333vw, 30px);
   }
 
-  .nav__text__dark,
-  .nav__text__light {
-    font-size: 16px;
-    line-height: 18.77px;
-  }
-
-  .nav::-webkit-scrollbar-thumb {
-    background: rgba(57, 205, 205, 0.23);
-  }
-
-  .nav:hover::-webkit-scrollbar-thumb {
-    background: #39cdcd96;
-  }
-
-  .logoWrapperOuter {
+  .logo {
     padding-block: clamp(20px, 1.805555556vw, 26px);
   }
 }
@@ -242,12 +257,12 @@
     left: 0;
   }
 
+  .wrapperShow {
+    width: unset;
+  }
+
   .overlay,
   .close {
     display: none;
-  }
-
-  .wrapperShow {
-    width: unset;
   }
 }

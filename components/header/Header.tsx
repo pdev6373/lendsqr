@@ -3,7 +3,6 @@ import Image from 'next/image';
 import styles from './Header.module.scss';
 import Search from '../search/Search';
 import { useContext, useState } from 'react';
-import Link from 'next/link';
 import { Roboto } from 'next/font/google';
 import { MainContext } from '@/context/MainContext';
 import { AuthContext } from '@/context/AuthContext';
@@ -11,15 +10,15 @@ import { AuthContext } from '@/context/AuthContext';
 const roboto = Roboto({ weight: '400', subsets: ['latin'] });
 
 export default function Header() {
-  const { setShowSidebar, setSearch } = useContext(MainContext);
+  const { setShowSidebar, setSearch, search, setSearchValue, searchValue } =
+    useContext(MainContext);
   const { email } = useContext(AuthContext);
-  const [searchValue, setSearchValue] = useState('');
 
   return (
     <header className={styles.wrapper}>
-      <div className={styles.wrapper__menu}>
+      <div className={styles.menu}>
         <div
-          className={styles.menuWrapper}
+          className={styles.menu__image}
           onClick={() => setShowSidebar((prev) => !prev)}
         >
           <Image
@@ -27,15 +26,20 @@ export default function Header() {
             alt="menu"
             width={24}
             height={24}
-            className={styles.menu}
           />
         </div>
 
         <Search
           placeHolder="Search for anything"
           value={searchValue}
-          setValue={setSearchValue}
-          onSearch={() => setSearch(searchValue)}
+          setValue={(e) => {
+            setSearch(e);
+            setSearchValue(e);
+          }}
+          onSearch={() => {
+            setSearch(search);
+            setSearchValue(searchValue);
+          }}
         />
       </div>
 
@@ -43,7 +47,7 @@ export default function Header() {
         <a
           href="https://blog.lendsqr.com/how-to-use-lendsqr-apis-to-power-your-loan-app/"
           target="_blank"
-          className={`${roboto.className} ${styles.docs}`}
+          className={`${roboto.className} ${styles.aside__docs}`}
         >
           Docs
         </a>
@@ -53,21 +57,23 @@ export default function Header() {
           alt="notification"
           width={26}
           height={26}
-          className={styles.notification}
+          className={styles.aside__notification}
         />
 
-        <div className={styles.profile}>
-          <div className={styles.profileImageWrapper}>
+        <div className={styles.aside__profile}>
+          <div className={styles.aside__profile__image}>
             <Image
               src={'/assets/pngs/profile.png'}
               alt="profile"
               fill
-              className={styles.profileImage}
+              className={styles.aside__profile__image__link}
             />
           </div>
 
-          <div className={styles.user}>
-            <p className={styles.name}>{email.replace(/@.+$/, '')}</p>
+          <div className={styles.aside__user}>
+            <p className={styles.aside__user__name}>
+              {email.replace(/@.+$/, '')}
+            </p>
             <Image
               src={'/assets/svgs/dropdown.svg'}
               alt="dropdown"

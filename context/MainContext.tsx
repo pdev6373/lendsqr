@@ -62,10 +62,14 @@ export type UserType = {
 type MainContextType = {
   showSidebar: boolean;
   setShowSidebar: Dispatch<SetStateAction<boolean>>;
+  setFetchingUsers: Dispatch<SetStateAction<boolean>>;
   users: UserType[] | null;
+  setUsers: Dispatch<SetStateAction<UserType[] | null>>;
   fetchingUsers: boolean;
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
+  searchValue: string;
+  setSearchValue: Dispatch<SetStateAction<string>>;
   organizations: string[];
 };
 
@@ -74,8 +78,12 @@ const MainInitialValues: MainContextType = {
   setShowSidebar: () => {},
   users: null,
   fetchingUsers: false,
+  setFetchingUsers: () => {},
   search: '',
   setSearch: () => {},
+  setUsers: () => {},
+  searchValue: '',
+  setSearchValue: () => {},
   organizations: [],
 };
 
@@ -86,22 +94,8 @@ export default function MainProvider({ children }: MainProviderType) {
   const [users, setUsers] = useState<UserType[] | null>(null);
   const [fetchingUsers, setFetchingUsers] = useState(false);
   const [search, setSearch] = useState('');
+  const [searchValue, setSearchValue] = useState('');
   const [organizations, setOrganizations] = useState<string[]>([]);
-
-  useEffect(() => {
-    try {
-      setFetchingUsers(true);
-      fetch('https://demo1391722.mockable.io/users', { method: 'GET' })
-        .then((response) => response.json())
-        .then((json) => {
-          setUsers(json);
-        });
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setFetchingUsers(false);
-    }
-  }, []);
 
   useEffect(() => {
     if (users)
@@ -116,10 +110,14 @@ export default function MainProvider({ children }: MainProviderType) {
         showSidebar,
         setShowSidebar,
         users,
+        setUsers,
         fetchingUsers,
         search,
         setSearch,
         organizations,
+        searchValue,
+        setSearchValue,
+        setFetchingUsers,
       }}
     >
       {children}

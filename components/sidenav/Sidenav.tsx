@@ -150,14 +150,14 @@ export default function Sidenav() {
       <div
         className={`${styles.wrapper} ${showSidebar ? styles.wrapperShow : ''}`}
       >
-        <div className={styles.logoWrapperOuter}>
-          <div className={styles.logoWrapperInner}>
-            <div className={styles.logoWrapper}>
+        <div className={styles.logo}>
+          <div className={styles.logo__inner}>
+            <div className={styles.logo__inner__wrapper}>
               <Image
                 src={'/assets/svgs/logo.svg'}
                 alt="logo"
                 fill
-                className={styles.logo}
+                className={styles.logo__inner__wrapper__image}
               />
             </div>
 
@@ -174,9 +174,9 @@ export default function Sidenav() {
 
         <nav className={styles.nav}>
           <div className={styles.nav__main}>
-            <div className={styles.nav__top}>
+            <div className={styles.nav__main__top}>
               <div
-                className={styles.nav__top__content}
+                className={styles.nav__main__top__content}
                 onClick={() => setShowSidebar(false)}
               >
                 <Image
@@ -185,7 +185,9 @@ export default function Sidenav() {
                   width={16}
                   height={16}
                 />
-                <p className={styles.nav__text__dark}>Switch Organization</p>
+                <p className={styles.nav__main__top__content__darkText}>
+                  Switch Organization
+                </p>
                 <Image
                   src={'/assets/svgs/down.svg'}
                   alt="down"
@@ -195,7 +197,7 @@ export default function Sidenav() {
               </div>
 
               <div
-                className={styles.nav__top__content}
+                className={styles.nav__main__top__content}
                 onClick={() => setShowSidebar(false)}
               >
                 <Image
@@ -204,23 +206,26 @@ export default function Sidenav() {
                   width={16}
                   height={15}
                 />
-                <p className={styles.nav__text__light}>Dashboard</p>
+                <p className={styles.nav__main__top__content__lightText}>
+                  Dashboard
+                </p>
               </div>
             </div>
 
             <div className={styles.nav__main}>
               {navs.map((nav) => (
-                <div className={styles.nav__content} key={nav.title}>
-                  <h3 className={styles.nav__title}>{nav.title}</h3>
-                  <ul className={styles.nav_links}>
+                <div className={styles.nav__main__content} key={nav.title}>
+                  <h3 className={styles.nav__main__content__title}>
+                    {nav.title}
+                  </h3>
+                  <ul className={styles.nav__main__content__links}>
                     {nav.links.map((link) => (
                       <li key={link.name}>
                         <div
-                          // href={''}
                           onClick={() => setShowSidebar(false)}
-                          className={`${styles.nav__top__content} ${
+                          className={`${styles.nav__main__top__content} ${
                             link.route.includes('/users')
-                              ? styles.nav__top__content__active
+                              ? styles.nav__main__top__content__active
                               : ''
                           }`}
                         >
@@ -234,9 +239,11 @@ export default function Sidenav() {
                           </div>
 
                           <p
-                            className={`${styles.nav__text__light} ${
+                            className={`${
+                              styles.nav__main__top__content__lightText
+                            } ${
                               link.route.includes('/users')
-                                ? styles.nav__text__dark
+                                ? styles.nav__main__top__content__darkText
                                 : ''
                             }`}
                           >
@@ -249,14 +256,14 @@ export default function Sidenav() {
                 </div>
               ))}
 
-              <div className={styles.logoutWrapper}>
+              <div className={styles.logout}>
                 <div
                   onClick={() => {
                     localStorage.removeItem('lendsqr__email');
                     localStorage.removeItem('lendsqr__user');
                     setEmail('');
                   }}
-                  className={styles.nav__top__content}
+                  className={styles.nav__main__top__content}
                 >
                   <div className={styles.nav__iconWrapper}>
                     <Image
@@ -268,7 +275,7 @@ export default function Sidenav() {
                   </div>
 
                   <p
-                    className={`${styles.nav__text__light} ${styles.nav__text__dark}`}
+                    className={`${styles.nav__main__top__content__lightText} ${styles.nav__main__top__content__darkText}`}
                   >
                     Logout
                   </p>

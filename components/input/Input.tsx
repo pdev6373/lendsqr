@@ -22,9 +22,11 @@ export default function Input({
   outline,
 }: InputProps) {
   return (
-    <div className={`${styles.wrapper} ${outline ? styles.outline : ''}`}>
+    <div
+      className={`${styles.wrapper} ${outline ? styles.wrapperOutline : ''}`}
+    >
       <input
-        className={styles.input}
+        className={styles.wrapper__input}
         placeholder={placeHolder}
         value={value}
         onChange={(e) => setValue(e.target.value)}

@@ -4,25 +4,30 @@
   gap: 10px;
   cursor: pointer;
   min-width: 130px;
-}
 
-.header__text {
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 14.08px;
-  color: #545f7d;
-  flex-shrink: 0;
+  &__text {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 14.08px;
+    color: #545f7d;
+    flex-shrink: 0;
+  }
 }
 
 .space {
   width: 35px;
 }
 
-.tableCellStatus {
-  background-color: rgba(84, 95, 125, 0.06);
-  text-align: center;
-  border-radius: 100px;
-  padding: 7px 15px;
+.statusWrapper {
+  padding-block: 16px;
+  width: fit-content;
+
+  &__status {
+    background-color: rgba(84, 95, 125, 0.06);
+    text-align: center;
+    border-radius: 100px;
+    padding: 7px 15px;
+  }
 }
 
 .pending {
@@ -38,9 +43,4 @@
 .active {
   background-color: rgba(57, 205, 98, 0.06);
   color: #39cd62;
-}
-
-.tableCellStatusWrapper {
-  padding-block: 16px;
-  width: fit-content;
 }

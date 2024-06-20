@@ -5,7 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import styles from './Actions.module.css';
+import styles from './Actions.module.scss';
 import Image from 'next/image';
 import { useContext } from 'react';
 import { MainContext, UserOverviewType } from '@/context/MainContext';
@@ -35,13 +35,14 @@ export default function Actions({ row }: ActionsProps) {
             />
           </div>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent
           align="end"
           alignOffset={-40}
           className={styles.content}
         >
           <DropdownMenuItem
-            className={styles.itemWrapper}
+            className={styles.content__item}
             onClick={() => {
               if (users) {
                 const user = users?.find(
@@ -63,29 +64,29 @@ export default function Actions({ row }: ActionsProps) {
               width={16}
               height={16}
             />
-            <p className={styles.dropdownText}>View Details</p>
+            <p className={styles.content__item__text}>View Details</p>
           </DropdownMenuItem>
 
-          <DropdownMenuItem className={styles.itemWrapper}>
+          <DropdownMenuItem className={styles.content__item}>
             <Image
               src={'/assets/svgs/blacklist.svg'}
               alt="blacklist"
               width={16}
               height={16}
             />
-            <p className={styles.dropdownText}>
+            <p className={styles.content__item__text}>
               {status === 'Blacklisted' ? 'Whitelist User' : 'Blacklist User'}
             </p>
           </DropdownMenuItem>
 
-          <DropdownMenuItem className={styles.itemWrapper}>
+          <DropdownMenuItem className={styles.content__item}>
             <Image
               src={'/assets/svgs/activate-user.svg'}
               alt="activate"
               width={16}
               height={16}
             />
-            <p className={styles.dropdownText}>
+            <p className={styles.content__item__text}>
               {status === 'Active' ? 'Deactivate User' : 'Activate User'}
             </p>
           </DropdownMenuItem>

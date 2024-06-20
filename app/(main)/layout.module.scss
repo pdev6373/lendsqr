@@ -13,5 +13,6 @@
 
   &__children {
     padding: clamp(24px, 4.165vw, 60px);
+    box-shadow: inset 0px 0px 20px 0px #0000000a;
   }
 }

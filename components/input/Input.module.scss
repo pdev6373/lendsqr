@@ -5,35 +5,35 @@
   padding-inline: 14px;
   gap: 6px;
   overflow: hidden;
+
+  &:focus-within {
+    outline: 2px solid #39cdcd33;
+    border-color: #cdd0da1d;
+    outline-offset: 1.5px;
+  }
+
+  &__input {
+    flex-grow: 1;
+    padding-block: 14px;
+    color: #545f7d;
+  }
+
+  &__input,
+  &__input::placeholder {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19.12px;
+  }
+
+  &__input::placeholder {
+    color: #545f7d99;
+  }
 }
 
-.wrapper:focus-within {
-  outline: 2px solid #39cdcd33;
-  border-color: #cdd0da1d;
-  outline-offset: 1.5px;
-}
-
-.outline {
+.wrapperOutline {
   outline: 2px solid #e4033b2e !important;
   border-color: #cdd0da1d;
   outline-offset: 1.5px;
-}
-
-.input {
-  flex-grow: 1;
-  padding-block: 14px;
-  color: #545f7d;
-}
-
-.input,
-.input::placeholder {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 19.12px;
-}
-
-.input::placeholder {
-  color: #545f7d99;
 }
 
 .extra {
@@ -54,7 +54,7 @@
     padding-inline: 16px 18px;
   }
 
-  .input {
+  .wrapper__input {
     padding-block: 15px;
   }
 }
