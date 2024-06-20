@@ -57,8 +57,8 @@
   position: absolute;
   margin: auto auto;
   inset: 0;
-  width: 150px;
-  height: 150px;
+  width: min(150px, 70vw);
+  height: min(150px, 70vw);
 }
 
 .loading > *:nth-child(1) {
@@ -74,8 +74,8 @@
 }
 
 .loading > *:nth-child(4) {
-  width: 80px;
-  height: 80px;
+  width: min(80px, 40vw);
+  height: min(80px, 40vw);
   display: flex;
   justify-content: center;
   align-items: center;

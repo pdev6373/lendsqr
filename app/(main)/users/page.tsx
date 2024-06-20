@@ -38,7 +38,7 @@ export default function Users() {
   useEffect(() => {
     try {
       setLoading(true);
-      fetch('https://apimocha.com/lendsqr/users', { method: 'GET' })
+      fetch('https://apimocha.com/lend/users', { method: 'GET' })
         .then((response) => response.json())
         .then((json) => {
           setUsers(json);
