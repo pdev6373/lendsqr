@@ -66,6 +66,23 @@ export default function Users() {
       );
   }, [users]);
 
+  if (fetchingUsers)
+    return (
+      <div className={styles.loading}>
+        <div />
+        <div />
+        <div />
+        <div>
+          <Image
+            src={'/assets/svgs/logo-icon.svg'}
+            alt="logo icon"
+            width={28}
+            height={28}
+          />
+        </div>
+      </div>
+    );
+
   if (!users && !fetchingUsers) return <></>;
 
   return (

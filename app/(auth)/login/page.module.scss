@@ -85,7 +85,7 @@
     &__input {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
     }
   }
 }
@@ -153,10 +153,6 @@
         font-size: 20px;
         line-height: 27.32px;
       }
-    }
-
-    &__form__input {
-      gap: 8px;
     }
   }
 
